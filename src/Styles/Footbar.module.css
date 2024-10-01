@@ -1,0 +1,45 @@
+.main{
+    height: 60px;
+    width: 100%;
+    background-color: #38874C;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    position: fixed;
+    bottom: 0;
+}
+
+
+.links{
+    /* margin-right: 50px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.links ul{
+    display: flex;
+    align-items: center;
+}
+
+.linkLi{
+    font-size: 15px;
+    font-weight: 400;
+    margin: 25px;
+    padding-bottom: 5px;
+    height: 30px; 
+   width: 30px;
+}
+
+.selectedLink {
+    border-bottom: 2px solid rgb(255, 255, 255); /* You can adjust this style */
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+img{
+   height: 30px; 
+   width: 30px;
+}

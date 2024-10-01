@@ -1,0 +1,32 @@
+.main{
+    height: 70px;
+    width: auto;
+    background-color: #38874C;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+}
+
+.logo{
+    color: white;
+    margin-left: 50px;
+    font-weight: bold;
+}
+
+.links{
+    margin-right: 50px;
+    
+}
+
+.linkLi{
+    font-size: 15px;
+    font-weight: 400;
+    margin-right: 50px;
+    padding-bottom: 5px;
+}
+
+.selectedLink {
+    border-bottom: 2px solid rgb(255, 255, 255); /* You can adjust this style */
+    font-weight: 600;
+}

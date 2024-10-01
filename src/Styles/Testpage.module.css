@@ -1,0 +1,247 @@
+
+
+.examContainer{
+    margin-left: 5%;
+    height: 500px;
+    width: 90%;
+    /* border: 1px solid black; */
+    padding: 20px;
+    margin-top: 20px;
+}
+.examDiv{
+    border: 1px solid black;
+    border-radius: 5px;
+    height: 50px;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.mainContainer{
+    height: 100vh;
+    /* border: 1px solid black; */
+    display: flex;
+    align-items:center;
+    justify-content: space-around;
+    user-select: none;
+}
+
+.queContainer{
+    height: 100vh;
+    width: 100%;
+    /* border-right: 0.2px solid black; */
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    flex-direction: column;
+    padding: 20px;
+}
+
+.header{
+    height: 40px;
+    background-color: #38874C;
+    width: 80%;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.queHandeler{
+    height: 100vh;
+    width: 40%;
+    /* border: 1 px solid black; */
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(245, 245, 245);
+}
+
+.timerContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+}
+
+.timer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #74c78a;
+    height: 40px;
+    width: 100px;
+    text-align:center;
+    border-radius: 8px;
+    font-size: large;
+    font-weight: 700;
+    background-color: #d5ecdb;
+    color: rgb(223, 103, 34);
+}
+.langDiv{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    margin-bottom: 20px ;
+}
+
+.langBtn{
+    width: 120px;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid #74c78a;
+    background-color: #d5ecdb;
+    color: red;
+    font-weight: 600;
+}
+
+.langBtn:hover{
+    border: 1px solid #38874C;
+}
+
+.queNoContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 280px;
+    /* border: 1px solid black; */
+}
+
+.queNos{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 35px;
+    width: 35px;
+    margin: 10px;
+    /* border: 1px solid black; */
+    border-radius: 5px;
+    background-color: rgb(199, 197, 197);
+    font-weight: 600;
+}
+
+.queNos:hover{
+    border: 2px solid red;
+}
+
+.queNoAnswered{
+    background: #BFDFB0;
+    /* border: 1px solid #74c78a; */
+    color: #38874C;
+}
+
+.queNoSkipped{
+    background: #dfb0b0;
+    /* border: 1px solid #74c78a; */
+    color: #ff2222;
+}
+
+.queNoCurrent{
+    background: #F8CD8D;
+    /* border: 1px solid #74c78a; */
+    color: #EE7373;
+}
+
+.mainQue{
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    margin-left: 20px ;
+    /* cursor: pointer; */
+    user-select: none;
+}
+
+.queOptions{
+    display: flex;
+    /* align-items: center; */
+    /* justify-content: center; */
+    flex-direction: column;
+    /* border: 1px solid black; */
+    width: 100%;
+    margin: 35px;
+}
+
+.optionBtn{
+    height: 40px;
+    border: 1px solid white;
+    margin: 5px;
+    display: flex;
+    align-items: center;    
+    padding: 10px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.optionBtn:hover{
+    background: #d5ecdb;
+    border: 1px solid #74c78a;
+    color: #38874C;
+}
+
+.btns{
+    display: flex;
+    align-items: center; 
+    justify-content: space-between;
+    padding: 05px;
+    margin-top: 50px;
+    font-weight: 600;
+    width: 100%;
+}
+
+
+.queBtns{
+    border-radius: 3px;
+    height: 35px;
+    width: 100px;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    /* padding: 5px; */
+    border: 1px solid #74c78a;
+    background-color: #d5ecdb;
+    color:#38874C;
+    font-weight: 600;
+    
+}
+
+.queBtns:hover{
+    border: 1px solid #38874C;
+}
+
+.exitNsubmit{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center; 
+    justify-content: space-around;
+}
+
+.exitBtn{
+    border: 1px solid #f76363;
+    background-color: #ecd5d5;
+    color:#f12121;
+    border-radius: 3px;
+    height: 35px;
+    width: 100px;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    font-weight: 600;
+}
+
+.exitBtn:hover{
+    border: 1px solid #ca0000;
+}
+
+.solution{
+    display: flex;
+    width: 100%;
+    margin: 20px;
+    border-top: 1px solid black;
+    padding: 20px;
+    flex-direction: column;
+}
