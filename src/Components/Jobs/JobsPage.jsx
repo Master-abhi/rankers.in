@@ -47,7 +47,7 @@ const JobsPage = ()=>{
             <div className="exams flex flex-wrap h-70 w-full p-2 my-10 rounded-md bg-[#edfff2]">
             {highlightedJobs.map((data)=>
                  data.newMark === true ? <Link to={`/jobs/${data.id}`} key={data.id} className="w-full"> 
-                  <div key={data.id} className={styles.examDiv} >{data.JobsName}</div>
+                  <div key={data.id} className={styles.examDiv} ><h1>{data.JobsName}</h1></div>
                   </Link> : ""
               )}
 
@@ -67,7 +67,7 @@ const JobsPage = ()=>{
                         <div className="exams flex flex-wrap h-70 w-full p-2 my-5 rounded-md ">
                             {highlightedJobs.map((data)=>
                                 data.newMark !== true ? <Link to={`/jobs/${data.id}`} key={data.id} className="w-full"> 
-                                <div key={data.id} className={styles.examDiv} >{data.JobsName}</div>
+                                <div key={data.id} className={styles.examDiv} ><h1>{data.JobsName}</h1></div>
                                 </Link> : ""
                             )}
 

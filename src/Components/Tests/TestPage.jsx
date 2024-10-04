@@ -52,7 +52,7 @@ const TestPage = ()=>{
         <div className="exams flex flex-wrap h-70 w-full p-2 my-5 rounded-md bg-[#edfff2]">
             {tests.map((data)=>
                  data.newMark === true ? <Link to={`/tests/${data.id}`} key={data.id} className="w-full"> 
-                  <div key={data.id} className={styles.examDiv} >{data.testName}</div>
+                  <div key={data.id} className={styles.examDiv} ><h1>{data.testName}</h1></div>
                   </Link> : ""
               )}
 
@@ -124,7 +124,7 @@ const TestPage = ()=>{
             
            {tests.map((data)=>
                  data.belongsTo === selectedExam && data.newMark !== true ? <Link to={`/tests/${data.id}`} key={data.id} className="w-full"> 
-                  <div key={data.id} className={styles.examDiv} >{data.testName}</div>
+                  <div key={data.id} className={styles.examDiv} ><h1>{data.testName}</h1></div>
                   </Link> : ""
               )}
            </div>

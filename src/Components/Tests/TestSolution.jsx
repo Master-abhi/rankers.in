@@ -138,7 +138,7 @@ const TestStart = () => {
                 </button>
               </div>
               <div className={styles.mainQue}>
-                <p>{test.questions[count].numb}. {test.questions[count].question[language]}</p>
+                <h1>{test.questions[count].numb}. {test.questions[count].question[language]}</h1>
               </div>
               <div className={styles.queOptions}>
                 {test.questions[count].options[language].map((option, index) => (
