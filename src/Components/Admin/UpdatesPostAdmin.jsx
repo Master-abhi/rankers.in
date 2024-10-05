@@ -1,5 +1,5 @@
 import {collection, addDoc, setDoc, onSnapshot, Timestamp} from "firebase/firestore";
-import {db} from "../../firebaseinit";
+import {auth, db} from "../../firebaseinit";
 import { useState, useRef, useEffect } from "react";
 import * as XLSX from "xlsx";
 
@@ -24,7 +24,23 @@ const UpdatePostAdmin = ()=>{
 
 
     // ------------------------------------------------------------
+    const [isLoggedin, setLoggedin] = useState(false);
 
+    const fetchuser = async ()=>{
+        auth.onAuthStateChanged(async(user)=>{
+            if(user){
+                setLoggedin(true)
+
+            }
+            else{
+                console.log("user not logged in.")
+            }
+        })
+    }
+
+  useEffect(()=>{
+    fetchuser();
+},[])
 
     const addUpdate = async (e)=>{
         
@@ -43,6 +59,7 @@ const UpdatePostAdmin = ()=>{
 
     return (
         <>
+            { isLoggedin ? 
             <div className="bg-slate-50 flex flex-col md:flex items-center justify-center w-full h-full">
             <div className="max-h-full w-full bg-[#F6F6F2] flex flex-col md:flex items-center justify-center ">
 
@@ -81,6 +98,7 @@ const UpdatePostAdmin = ()=>{
                 </div> 
             </div>
             </div>
+            : "log in first"}
         <div className="h-[50px]">
 
         </div>

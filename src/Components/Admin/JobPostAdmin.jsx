@@ -1,5 +1,5 @@
 import {collection, addDoc, setDoc, onSnapshot, Timestamp} from "firebase/firestore";
-import {db} from "../../firebaseinit";
+import {auth, db} from "../../firebaseinit";
 import { useState, useRef, useEffect } from "react";
 import * as XLSX from "xlsx";
 
@@ -8,6 +8,7 @@ const JobPostAdmin = ()=>{
 
  
     const nameRef = useRef();
+    const logoRef = useRef();
     const newMarkRef = useRef();
     const postDateRef  = useRef();
     const totalVacancyRef  = useRef();
@@ -49,69 +50,23 @@ const JobPostAdmin = ()=>{
 
     // ------------------------------------------------------------
 
-    // const handleFileUpload1 = (event) => {
-    //     const file = event.target.files[0];
-    //     const reader = new FileReader();
-    
-    //     reader.onload = (e) => {
-    //       const binaryStr = e.target.result;
-    //       const workbook = XLSX.read(binaryStr, { type: "binary" });
-    
-    //       // Get the first sheet
-    //       const sheetName = workbook.SheetNames[0];
-    //       const worksheet = workbook.Sheets[sheetName];
-    
-    //       // Convert the worksheet to JSON format
-    //       const jsonData = XLSX.utils.sheet_to_json(worksheet);
-    //       setData1(jsonData); // Save the data to state
-         
-    //     };
-    
-    //     reader.readAsBinaryString(file);
-        
-    //   };
+    const [isLoggedin, setLoggedin] = useState(false);
 
-    //     const handleFileUpload2 = (event) => {
-    //     const file = event.target.files[0];
-    //     const reader = new FileReader();
-    
-    //     reader.onload = (e) => {
-    //       const binaryStr = e.target.result;
-    //       const workbook = XLSX.read(binaryStr, { type: "binary" });
-    
-    //       // Get the first sheet
-    //       const sheetName = workbook.SheetNames[0];
-    //       const worksheet = workbook.Sheets[sheetName];
-    
-    //       // Convert the worksheet to JSON format
-    //       const jsonData = XLSX.utils.sheet_to_json(worksheet);
-    //       setData2(jsonData); // Save the data to state
-    //     };
-    
-    //     reader.readAsBinaryString(file);
-        
-    //   };
+    const fetchuser = async ()=>{
+        auth.onAuthStateChanged(async(user)=>{
+            if(user){
+                setLoggedin(true)
 
-    //   const handleFileUploadLink = (event) => {
-    //     const file = event.target.files[0];
-    //     const reader = new FileReader();
-    
-    //     reader.onload = (e) => {
-    //       const binaryStr = e.target.result;
-    //       const workbook = XLSX.read(binaryStr, { type: "binary" });
-    
-    //       // Get the first sheet
-    //       const sheetName = workbook.SheetNames[0];
-    //       const worksheet = workbook.Sheets[sheetName];
-    
-    //       // Convert the worksheet to JSON format
-    //       const jsonData = XLSX.utils.sheet_to_json(worksheet);
-    //       setLink(jsonData); // Save the data to state
-    //     };
-    
-    //     reader.readAsBinaryString(file);
-        
-    //   };
+            }
+            else{
+                console.log("user not logged in.")
+            }
+        })
+    }
+
+  useEffect(()=>{
+    fetchuser();
+},[])
 
     const [htmlCode1, setHtmlCode1] = useState("");
     const [tablePreview1, setTablePreview1] = useState("");
@@ -281,11 +236,24 @@ const JobPostAdmin = ()=>{
       setIsNew(value);
       }
 
+      const clearTable1= ()=>{
+        setHtmlCode1("")
+        setTablePreview1("")
+      }
+      const clearTable2= ()=>{
+        setHtmlCode2("")
+        setTablePreview2("")
+      }
+      const clearTable3= ()=>{
+        setHtmlCode3("")
+        setTablePreview3("")
+      }
     const addJob = async (e)=>{
         
         console.log(e)
         const docRef = await addDoc(collection(db, "highlightedJobs"),{
             JobsName:e.n,
+            logo: e.l,
             newMark: isNew,
             postDate:e.p,
             totalVacancy:e.tv,
@@ -312,11 +280,12 @@ const JobPostAdmin = ()=>{
 
     return (
         <>
+
+        {isLoggedin ? 
             <div className="bg-slate-50 flex flex-col md:flex items-center justify-center w-full h-full">
             <div className="max-h-full w-full bg-[#F6F6F2] flex flex-col md:flex items-center justify-center ">
-
-                {/*-------------------------------------------------- Highlighted jobs-------------------------------------------------- */}
-                <div className="h-full w-full md:w-[60%] ">
+                    {/*-------------------------------------------------- Highlighted jobs-------------------------------------------------- */}
+                    <div className="h-full w-full md:w-[60%] ">
                     <div className="bg-[#b6e0c1] h-10 w-full texts-center text-2xl text-red-700 font-bold flex justify-center items-center">
                        <img className="h-[30px]" src="https://cdn-icons-png.flaticon.com/128/728/728139.png" />
                         Add a Job details for post
@@ -328,6 +297,10 @@ const JobPostAdmin = ()=>{
                             <div className="flex items-center m-4 w-full">
                                 <p className="mx-4">Name of the Post : </p>
                                 <input type="text" ref={nameRef} className="border border-black w-[80%]" />
+                            </div>
+                            <div className="flex items-center m-4 w-full">
+                                <p className="mx-4">Logo of recruiter : </p>
+                                <input type="text" ref={logoRef} className="border border-black w-[80%]" />
                             </div>
                             <div className="flex items-center m-4 w-full">
                                 <p className="mx-4">new mark (true/false) : </p>
@@ -435,6 +408,7 @@ const JobPostAdmin = ()=>{
                     <div>
                     <h1>Excel to Hardcoded HTML Converter</h1>
                     <input type="file" onChange={handleFileUpload1} accept=".xlsx, .xls" />
+                    <button onClick={()=>clearTable1()}>Clear Table</button>
                     <h2>Generated HTML Code:</h2>
                     <pre style={{ whiteSpace: "pre-wrap", background: "#f0f0f0", padding: "10px" }}>
                         {htmlCode1}
@@ -446,6 +420,7 @@ const JobPostAdmin = ()=>{
                     <div>
                     <h1>Excel to Hardcoded HTML Converter</h1>
                     <input type="file" onChange={handleFileUpload2} accept=".xlsx, .xls" />
+                    <button onClick={()=>clearTable2()}>Clear Table</button>
                     <h2>Generated HTML Code:</h2>
                     <pre style={{ whiteSpace: "pre-wrap", background: "#f0f0f0", padding: "10px" }}>
                         {htmlCode2}
@@ -453,56 +428,6 @@ const JobPostAdmin = ()=>{
                     <h2>Preview:</h2>
                     <div dangerouslySetInnerHTML={{ __html: tablePreview2 }} />
                     </div>
-                    {/* <div className="m-5 flex">
-                        <h1 className="mx-5">Upload Excel File</h1>
-                        <input type="file" accept=".xlsx, .xls" onChange={handleFileUpload1} />
-                        <br />
-                    </div>
-
-
-                        {/* Render the data in a table */}
-                        {/* <table className= "border:1">
-                            <thead>
-                            <tr>
-                                {data1.length > 0 &&
-                                Object.keys(data1[0]).map((key) => <th key={key}>{key}</th>)}
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {data1.map((row, rowIndex) => (
-                                <tr key={rowIndex}>
-                                {Object.values(row).map((cell, cellIndex) => (
-                                    <td key={cellIndex}>{cell}</td>
-                                ))}
-                                </tr>
-                            ))}
-                            </tbody>
-                        </table>
-                        <div className="m-5 flex">
-                        <h1 className="mx-5">Upload Excel File</h1>
-                        <input type="file" accept=".xlsx, .xls" onChange={handleFileUpload2} />
-                        <br />
-                    </div> */}
-
-
-                        {/* Render the data in a table */}
-                        {/* <table className= "border:1">
-                            <thead>
-                            <tr>
-                                {data2.length > 0 &&
-                                Object.keys(data2[0]).map((key) => <th key={key}>{key}</th>)}
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {data2.map((row, rowIndex) => (
-                                <tr key={rowIndex}>
-                                {Object.values(row).map((cell, cellIndex) => (
-                                    <td key={cellIndex}>{cell}</td>
-                                ))}
-                                </tr>
-                            ))}
-                            </tbody>
-                        </table> */}
                             
 
                         </div>
@@ -514,9 +439,10 @@ const JobPostAdmin = ()=>{
                        
                     </div>
 
-                                    <div>
+                    <div className="flex flex-col  w-[90%]">
                     <h1>Excel to Hardcoded HTML Converter</h1>
                     <input type="file" onChange={handleFileUploadLink} accept=".xlsx, .xls" />
+                    <button onClick={()=>clearTable3()}>Clear Table</button>
                     <h2>Generated HTML Code:</h2>
                     <pre style={{ whiteSpace: "pre-wrap", background: "#f0f0f0", padding: "10px" }}>
                         {htmlCodeLink}
@@ -524,50 +450,7 @@ const JobPostAdmin = ()=>{
                     <h2>Preview:</h2>
                     <div dangerouslySetInnerHTML={{ __html: tablePreviewLink }} />
                     </div>
-                    {/* <form className=" flex flex-col  w-full">
 
-                        <div className="flex  items-center m-4 w-full">
-                                <p className="mx-4">Apply Online : </p>
-                                <input type="text" ref={applyOnlineRef} className="border border-black w-1/3" />
-                            </div>
-
-                            <div className="flex items-center m-4 w-full">
-                                <p className="mx-4">Notification :</p>
-                                <input type="text" ref={notificationRef} className="border border-black w-1/3" />
-                            </div>
-
-                            <div className="flex items-center m-4 w-full">
-                                <p className="mx-4"> Official Website:</p>
-                                <input type="text" ref={officialWebsiteRef} className="border border-black w-1/3" />
-                            </div>
-
-                        </form> */}
-{/* 
-                    <div className="m-5 flex">
-                        <h1 className="mx-5">Upload Excel File</h1>
-                        <input type="file" accept=".xlsx, .xls" onChange={handleFileUploadLink} />
-                        <br />
-                    </div> */}
-
-
-                        {/* Render the data in a table */}
-                        {/* <table className= "border:1">
-                            <thead>
-                            <tr>
-                                {link.length > 0 &&
-                                Object.keys(link[0]).map((key) => <th key={key}>{key}</th>)}
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {link.map((row, rowIndex) => (
-                                <tr key={rowIndex}>
-                                {Object.values(row).map((cell, cellIndex) => (
-                                    <td key={cellIndex}>{cell}</td>
-                                ))}
-                                </tr>
-                            ))}
-                            </tbody>
-                        </table> */}
 
 
                     </div>
@@ -584,8 +467,9 @@ const JobPostAdmin = ()=>{
                                 
 
 
-                <div className="flex  items-center m-4 w-full">      
+                <div className="flex justify-center items-center m-4 w-full ">      
                     <input type="submit" onClick={()=>addJob({n:nameRef.current.value,
+                      l:logoRef.current.value,
                      tv: totalVacancyRef.current.value,
                      p:postDateRef.current.value, 
                      r:recruitmentByRef.current.value, 
@@ -593,11 +477,14 @@ const JobPostAdmin = ()=>{
                      m:ageRef.current.value, 
                      q:qualificationDetailRef.current.value, f:feeRef.current.value,
                      t:tagsRef.current.value, 
-                })} className="border border-black w-1/5" />
+                })} className="border-2 border-black hover:border-[#38874C] cursor-pointer w-1/5" />
                 </div>
+                
               </div>
+              
 
         </div>  
+        : "Please log in first"  }
         <div className="h-[50px]">
 
         </div>

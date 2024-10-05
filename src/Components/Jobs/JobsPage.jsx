@@ -40,7 +40,7 @@ const JobsPage = ()=>{
                 <div className="h-10 w-full  rounded-md flex justify-center items-center ">
                  <div className="w-full h-1 border bg-red-700"></div>
                 <img className="h-10 w-10" src="https://cdn-icons-gif.flaticon.com/13109/13109971.gif"/>
-                <span className="text-red-700 text-lg text-center  w-full ">New Exams</span>
+                <span className="text-red-700 text-lg text-center  w-full ">New Jobs</span>
                 <img className="h-10 w-10" src="https://cdn-icons-gif.flaticon.com/13109/13109971.gif"/>
                 <div className="w-full h-1 border bg-red-700"></div>
             </div>

@@ -41,14 +41,18 @@ const Home = () => {
     <>
       {/*-------------------------------------------------- Highlighted jobs-------------------------------------------------- */}
       <div className="flex items-center justify-center flex-col">
-        <div className="h-60 w-full md:w-3/5 m-10 rounded-md flex justify-center p-4 bg-[#74c78a]">
-          <span className="text-red-700 text-2xl">Welcome to Rankers.in</span>
+        <div className="h-60 w-full md:w-3/5 m-10 rounded-md flex flex-col items-center p-1 bg-[#38874C]">
+        <img className="h-[80px] w-[190px] m-0" src="src\assets\Rankers_logow.png"/>
+        <div><h1 className="text-white text-2xl">Welcome to Rankers.in </h1> </div>  
+        <div><h1 className="text-white text-xl"> Free News Updates </h1> </div>  
+        <div><h1 className="text-white text-xl"> Free Job Notification </h1> </div>  
+        <div><h1 className="text-white text-xl"> Free Test series </h1> </div>  
         </div>
         {/*-------------------------------------------------- Exams -------------------------------------------------- */}
         <div className="h-10 w-full md:w-3/5 m-5 rounded-md flex justify-center items-center ">
           <div className="w-full h-1 border bg-red-700"></div>
           <img className="h-10 w-10" src="https://cdn-icons-gif.flaticon.com/13109/13109971.gif"/>
-          <span className="text-red-700 text-lg  text-center w-full md:w-[30%] ">New Exams</span>
+          <span className="text-red-700 text-lg  text-center w-full md:w-[30%] ">New Jobs</span>
           <img className="h-10 w-10" src="https://cdn-icons-gif.flaticon.com/13109/13109971.gif"/>
           <div className="w-full h-1 border bg-red-700"></div>
         </div>
@@ -64,7 +68,7 @@ const Home = () => {
 
             <Link to="/jobs" className="h-10 w-full ">
               <div className={`text-[#38874C] font-bold ${ styles.examDiv}`}>
-                more Exams
+                more Jobs
               </div>
             </Link>
           </div>

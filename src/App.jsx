@@ -1,6 +1,8 @@
 import Home from "./Components/Home/Home";
 import Navbar from "./Components/Navbar/Navbar";
 import Footbar from "./Components/Navbar/Footbar";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; 
 
 import styles from "./App.module.css";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
@@ -18,6 +20,8 @@ import UpdatesAdmin from "./Components/Admin/UpdatesAdmin";
 import UpdatePostAdmin from "./Components/Admin/UpdatesPostAdmin";
 import TestsAdmin from "./Components/Admin/TestAdmin";
 import TestPostAdmin from "./Components/Admin/TestPostAdmin";
+import AdminSignUp from "./Components/Admin/AdminSignUp";
+import AdminLogin from "./Components/Admin/AdminLogin";
 
 function Layout() {
   return (
@@ -49,6 +53,8 @@ function App() {
         { path: "admin/updates-admin/updates-post-admin", element: <UpdatePostAdmin /> },
         { path: "admin/tests-admin", element: <TestsAdmin /> },
         { path: "admin/tests-admin/test-post-admin", element: <TestPostAdmin /> },
+        { path: "adminSignUp", element: <AdminSignUp /> },
+        { path: "adminLogin", element: <AdminLogin/>}
       ],
     },
   ]);
@@ -56,6 +62,7 @@ function App() {
   return (
     <div className={styles.App}>
       <RouterProvider router={router} />
+      <ToastContainer />
     </div>
   );
 }

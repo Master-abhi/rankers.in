@@ -1,11 +1,35 @@
 import { Link, Outlet, useLocation } from "react-router-dom";
 import styles from "../../Styles/Navbar.module.css"; 
 import { useState, useEffect } from "react";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../firebaseinit";
 
 
 const Navbar = () => {
     const location = useLocation(); // To get the current URL path
     const [selectedPage, setSelectedPage] = useState("");
+    const [userDetail, setUserDetail] =  useState(null)
+
+    const fetchuser = async ()=>{
+        auth.onAuthStateChanged(async(user)=>{
+            if(user){
+                const docRef = doc(db, "Users", user.uid);
+                const docId = await getDoc(docRef);
+                if (docId.exists()){
+                    setUserDetail(docId.data())
+                    console.log(docId.data())
+                }
+
+            }
+            else{
+                console.log("user not logged in.")
+            }
+        })
+    }
+
+  useEffect(()=>{
+    fetchuser();
+},[])
 
     // Set the selected page based on the current URL when the component mounts
     useEffect(() => {
@@ -28,7 +52,7 @@ const Navbar = () => {
             <div className={styles.main}>
                 <div className={styles.logo}>
                 <Link to="/">
-                     <img className="h-[80px] w-[190px] rounded-md" src="src\assets\Rankers_logow.png"/> 
+                <img className="h-[80px] w-[190px] m-0" src="src\assets\Rankers_logow.png"/>
                 </Link>
                 </div>
                 <div className={styles.links}>
@@ -50,7 +74,7 @@ const Navbar = () => {
                                 }`}
                                 onClick={() => setSelectedPage("updates")}
                             >
-                                Updates
+                                News
                             </li>
                         </Link>
                         <Link to="/jobs">
@@ -60,7 +84,7 @@ const Navbar = () => {
                                 }`}
                                 onClick={() => setSelectedPage("exams")}
                             >
-                                Exams
+                                Jobs
                             </li>
                         </Link>
                         {/* <Link to="/study">
@@ -86,9 +110,9 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="mx-8">
-                    <div className="bg-white rounded-full h-10 w-10 text-black flex items-center justify-center">
+                    {/* <div className="bg-white rounded-full h-10 w-10 text-black flex items-center justify-center">
                         <p>ID</p>
-                    </div>
+                    </div> */}
                 </div>
 
 

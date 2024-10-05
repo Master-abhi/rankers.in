@@ -1,11 +1,28 @@
 import {collection, doc, setDoc, deleteDoc, onSnapshot} from "firebase/firestore";
-import {db} from "../../firebaseinit";
+import {auth, db} from "../../firebaseinit";
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "../../Styles/Home.module.css"
 
 const TestsAdmin = ()=>{
     const [tests, setTests] = useState([]);
+    const [isLoggedin, setLoggedin] = useState(false);
+
+    const fetchuser = async ()=>{
+        auth.onAuthStateChanged(async(user)=>{
+            if(user){
+                setLoggedin(true)
+
+            }
+            else{
+                console.log("user not logged in.")
+            }
+        })
+    }
+
+  useEffect(()=>{
+    fetchuser();
+},[])
 
     useEffect(()=>{
           
@@ -32,7 +49,7 @@ const TestsAdmin = ()=>{
 
     return (
         <>
-
+{ isLoggedin ? 
         <div className="h-full main w-full flex items-center justify-center">
         <div className="h-full main w-full md:w-[60%] flex flex-col items-center justify-center my-10">
         <div className={`mx-10 ${styles.adminExam}`} >
@@ -67,6 +84,9 @@ const TestsAdmin = ()=>{
         </div>
 
     </div>
+    : 
+    "log in first"
+                        }
 
         </>
     )

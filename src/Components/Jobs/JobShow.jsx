@@ -54,11 +54,11 @@ const JobShow = () => {
 
             <div className="flex justify-center items-center w-full">
               <div className="flex justify-center items-center flex-col w-full">
-              <div className='h-40 w-40 p-2 my-2 flex justify-center items-center bg-blend'>
-                <img className='h-[100px] w-[120px] bg-blend-darken' src="https://ssc.nic.in/Content/library/assets/images/ssc-logo.png"/>
+              <div className='h-40 w-40 p-2 flex justify-center items-center bg-blend'>
+                <img className='h-[100px] w-[100px] bg-blend-color-dodge' src={job.logo}/>
               </div>
                 <div className="flex items-center justify-center my-1 w-[90%]">
-                  <h1 className='text-red-700 text-center font-semibold text-lg w-[90%]'>{job.JobsName}</h1>
+                  <h1 className='text-red-700 text-center font-bold text-xl w-[90%]'>{job.JobsName}</h1>
                 </div>
                 <div className="flex items-center justify-center my-1 w-full">
                   <p>Post Date : {job.postDate}</p>

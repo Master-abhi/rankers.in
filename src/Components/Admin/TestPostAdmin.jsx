@@ -1,6 +1,6 @@
 import { collection, addDoc } from "firebase/firestore";
-import { db } from "../../firebaseinit";
-import { useState, useRef } from "react";
+import { auth, db } from "../../firebaseinit";
+import { useState, useRef, useEffect } from "react";
 
 const TestPostAdmin = () => {
   const [isNew, setIsNew] = useState();
@@ -9,6 +9,23 @@ const TestPostAdmin = () => {
   const questionsRef = useRef();
   const postDateRef = useRef();
   const timerRef = useRef();
+  const [isLoggedin, setLoggedin] = useState(false);
+
+  const fetchuser = async ()=>{
+      auth.onAuthStateChanged(async(user)=>{
+          if(user){
+              setLoggedin(true)
+
+          }
+          else{
+              console.log("user not logged in.")
+          }
+      })
+  }
+
+useEffect(()=>{
+  fetchuser();
+},[])
 
   // Function to handle isNew radio input
   const handleRadio = (event) => {
@@ -77,6 +94,7 @@ const TestPostAdmin = () => {
 
       // Clear input fields after submission
       testNameRef.current.value = "";
+      timerRef.current.value = "";
       belongsToRef.current.value = "";
       questionsRef.current.value = "";
       postDateRef.current.value = "";
@@ -89,6 +107,7 @@ const TestPostAdmin = () => {
 
   return (
     <>
+    { isLoggedin ? 
       <div className="bg-slate-50 flex flex-col md:flex items-center justify-center w-full h-full">
         <div className="max-h-full w-full bg-[#F6F6F2] flex flex-col md:flex items-center justify-center ">
           <div className="h-full w-[60%] m-10">
@@ -112,7 +131,7 @@ const TestPostAdmin = () => {
               </div>
               <div className="text-center flex items-center justify-center">
                 <span className="text-center">Enter test time: </span>
-                <input type="text" ref={timerToRef} className="border border-black w-[80%] m-5" />
+                <input type="text" ref={timerRef} className="border border-black w-[80%] m-5" />
               </div>
               <div className="text-center flex items-center justify-center">
                 <span className="text-center">Enter Examiner: </span>
@@ -129,6 +148,8 @@ const TestPostAdmin = () => {
           </div>
         </div>
       </div>
+      :
+      "log in first"}
     </>
   );
 };
