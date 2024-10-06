@@ -2,7 +2,8 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import {db} from "../../firebaseinit"
 import { collection, onSnapshot } from "firebase/firestore";
-import styles from "../../Styles/Home.module.css"
+import styles from "../../Styles/Home.module.css";
+import { storage } from "../../firebaseinit";
 
 const Home = () => {
 
@@ -11,7 +12,6 @@ const Home = () => {
 
   useEffect(()=>{
         
-
     const unsubscribe1 = onSnapshot(collection(db, "highlightedJobs"), snapShot => {
         const jobs = snapShot.docs.map(doc => ({
             id: doc.id,
@@ -42,11 +42,10 @@ const Home = () => {
       {/*-------------------------------------------------- Highlighted jobs-------------------------------------------------- */}
       <div className="flex items-center justify-center flex-col">
         <div className="h-60 w-full md:w-3/5 m-10 rounded-md flex flex-col items-center p-1 bg-[#38874C]">
-        <img className="h-[80px] w-[190px] m-0" src="src\assets\Rankers_logow.png"/>
+        <img className="h-[80px] w-[190px] m-0" src="https://firebasestorage.googleapis.com/v0/b/rankers-c47cb.appspot.com/o/Rankers_logow.png?alt=media&token=aa181219-fc8a-4dec-8ded-4e452cc573e0"/>
         <div><h1 className="text-white text-2xl">Welcome to Rankers.in </h1> </div>  
-        <div><h1 className="text-white text-xl"> Free News Updates </h1> </div>  
-        <div><h1 className="text-white text-xl"> Free Job Notification </h1> </div>  
-        <div><h1 className="text-white text-xl"> Free Test series </h1> </div>  
+        <div><h1 className="text-white text-xl"> Free News Updates <br/> Free Job Notifications <br/> Free Test series </h1> </div>  
+
         </div>
         {/*-------------------------------------------------- Exams -------------------------------------------------- */}
         <div className="h-10 w-full md:w-3/5 m-5 rounded-md flex justify-center items-center ">
