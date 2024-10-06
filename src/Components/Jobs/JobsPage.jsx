@@ -36,11 +36,11 @@ const JobsPage = ()=>{
         <>
             <div className=" flex justify-center  w-full h-full">
 
-            <div className="h-full w-full md:w-[60%]  flex-col md:flex items-center justify-center ">
+            <div className="h-full w-full md:w-[60%] my-4 flex-col md:flex items-center justify-center ">
                 <div className="h-10 w-full  rounded-md flex justify-center items-center ">
                  <div className="w-full h-1 border bg-red-700"></div>
                 <img className="h-10 w-10" src="https://cdn-icons-gif.flaticon.com/13109/13109971.gif"/>
-                <span className="text-red-700 text-lg text-center  w-full ">New Jobs</span>
+                <span className="text-red-700 text-lg text-center w-full md:w-[250px] ">New Jobs</span>
                 <img className="h-10 w-10" src="https://cdn-icons-gif.flaticon.com/13109/13109971.gif"/>
                 <div className="w-full h-1 border bg-red-700"></div>
             </div>
@@ -59,7 +59,7 @@ const JobsPage = ()=>{
                         <div className="h-10 w-full rounded-md flex justify-center items-center ">
                         <div className="w-full h-1 border bg-red-700"></div>
                         <img className="h-10 w-10" src="https://cdn-icons-gif.flaticon.com/13109/13109971.gif"/>
-                        <span className="text-red-700 text-lg text-center  w-full ">All Job Notifications</span>
+                        <span className="text-red-700 text-lg text-center w-full md:w-[500px]  ">All Job Notifications</span>
                         <img className="h-10 w-10" src="https://cdn-icons-gif.flaticon.com/13109/13109971.gif"/>
                         <div className="w-full h-1 border bg-red-700"></div>
                         </div>

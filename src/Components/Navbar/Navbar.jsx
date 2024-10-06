@@ -59,7 +59,7 @@ const Navbar = () => {
                     <ul className="md:flex hidden">
                         <Link to="/">
                             <li
-                                className={`mx-8 hover:text-black font-400 hover:border-b ${
+                                className={`mx-8 hover:text-[] font-400 hover:border-b ${
                                     selectedPage === "home" ? styles.selectedLink : ""
                                 }`}
                                 onClick={() => setSelectedPage("home")}
