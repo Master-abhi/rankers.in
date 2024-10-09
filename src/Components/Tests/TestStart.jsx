@@ -12,6 +12,7 @@ const TestStart = () => {
   const [score, setScore] = useState(0);  // Track score
   const [isTestCompleted, setIsTestCompleted] = useState(false);  // Track if test is completed
   const [timeLeft, setTimeLeft] = useState(300);  // Timer set to 300 seconds (5 minutes)
+  const [totalTime, setTotalTime] = useState(0);
   const [timeTaken, setTimeTaken] = useState(0);  // Time taken after the test is completed
   const [selectedOptions, setSelectedOptions] = useState({});  // Track selected option for each question
   const [language, setLanguage] = useState('hi');  // Track the current language (Hindi by default)
@@ -21,31 +22,44 @@ const TestStart = () => {
 
   useEffect(() => {
     console.log("Current Test ID:", testId);
-    
+  
     if (testId) {
       const testDocRef = doc(db, "tests", testId);
-
+  
       const unsubscribe = onSnapshot(testDocRef, (docSnapshot) => {
         if (docSnapshot.exists()) {
-          setTest({ id: docSnapshot.id, ...docSnapshot.data() });
-          console.log(test)
+          const testData = { id: docSnapshot.id, ...docSnapshot.data() };
+          setTest(testData);  // Update test state
+          setLoading(false);  // Set loading to false after data is fetched
         } else {
           console.log("No such document!");
+          setLoading(false);  // Set loading to false even if no document is found
         }
-        
-        setLoading(false); // Set loading to false when data is fetched
       });
-
+  
       return () => {
         unsubscribe();
       };
+    } else {
+      console.log("Test ID or Test data not available");
+      setLoading(false);
     }
-    
-    console.log("Test ID or Test data not available");
   }, [testId]);
+  
+  // Use another useEffect to update timeLeft only when the test is loaded
+  useEffect(() => {
+    if (!loading && test) {
+      // Ensure that `setTimeLeft` runs only when test is fully loaded
+      setTimeLeft(test.timer);
+      setTotalTime(test.timer)
+      console.log("Time left has been set:", test.timer);
+    }
+  }, [loading, test]);  // This useEffect runs when loading is false and test has data
+  
 
-  // Total time allowed for the test (300 seconds = 5 minutes)
-  const totalTime = 300;
+  // useEffect(()=>{
+  //   setTimeLeft(test.timer)
+  // },[test.timer])
 
   // Questions array (with English and Hindi versions)
 
@@ -143,6 +157,13 @@ const TestStart = () => {
               <div className={styles.mainQue}>
                 <h1>{test.questions[count].numb}. {test.questions[count].question[language]}</h1>
               </div>
+              {test.questions[count].qList?<div className={styles.qList}>
+                {test.questions[count].qList[language].map((q, index) => (
+                  <div key={index}>
+                    <span>{q}</span>
+                  </div>
+                ))}
+              </div>:""}
               <div className={styles.queOptions}>
                 {test.questions[count].options[language].map((option, index) => (
                   <div

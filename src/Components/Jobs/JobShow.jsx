@@ -54,18 +54,18 @@ const JobShow = () => {
 
             <div className="flex justify-center items-center w-full">
               <div className="flex justify-center items-center flex-col w-full">
-              <div className='h-40 w-40 p-2 flex justify-center items-center bg-blend'>
+              {job.logo?<div className='h-40 w-40 p-2 flex justify-center items-center bg-blend'>
                 <img className='h-[100px] w-[100px] bg-blend-color-dodge' src={job.logo}/>
-              </div>
+              </div>:""}
                 <div className="flex items-center justify-center my-1 w-[90%]">
                   <h1 className='text-red-700 text-center font-bold text-xl w-[90%]'>{job.JobsName}</h1>
                 </div>
-                <div className="flex items-center justify-center my-1 w-full">
+                {job.postDate?<div className="flex items-center justify-center my-1 w-full">
                   <p>Post Date : {job.postDate}</p>
-                </div>
-                <div className="flex items-center justify-center my-1 w-full">
+                </div>:""}
+                {job.totalVacancy?<div className="flex items-center justify-center my-1 w-full">
                   <p>Total Vacancy : {job.totalVacancy} </p>
-                </div>
+                </div>: ""}
 
               </div>
             </div>
@@ -73,40 +73,36 @@ const JobShow = () => {
               <div className="h-10 w-full text-center text-xl text-red-700 font-bold flex justify-center items-center">
                 Vacancy Details
               </div>
-              <div className="flex items-center justify-center my-2 w-[90%] md:w-[70%]">
+              {job.recruitmentBy?<div className="flex items-center justify-center my-2 w-[90%] md:w-[70%]">
                   <p className='w-full text-justify'><span className="text-red-700 font-semibold items-stretch">संक्षिप्त जानकारी: </span> {job.recruitmentBy} </p>
-                </div>
-                <div className="flex flex-col justify-center text-justify my-2 w-[90%] md:w-[70%]">
+                </div>:""}
+                {job.impDate? <div className="flex flex-col justify-center text-justify my-2 w-[90%] md:w-[70%]">
                 <span className="text-red-700 font-semibold items-stretch">महत्वपूर्ण तिथियाँ: </span><div dangerouslySetInnerHTML={{ __html: job.impDate }} />
-                </div>
-                <div className="flex flex-col justify-center text-justify my-2 w-[90%] md:w-[70%]">
+                </div>:""}
+                {job.age?<div className="flex flex-col justify-center text-justify my-2 w-[90%] md:w-[70%]">
                 <span className="text-red-700 font-semibold text-justify items-stretch">आयु सीमा:</span><div dangerouslySetInnerHTML={{ __html: job.age }} />
-                </div>
-                <div className="flex flex-col justify-center text-justify my-2 w-[90%] md:w-[70%]">
-                <span className="text-red-700 font-semibold text-justify items-stretch">योग्यता:</span><div dangerouslySetInnerHTML={{ __html: job.qualificationDetail
- }} />
-                </div>
-                <div className="flex flex-col justify-center text-justify my-2 w-[90%] md:w-[70%]">
-                <span className="text-red-700 font-semibold text-justify items-stretch">आवेदन शुल्क:</span><div dangerouslySetInnerHTML={{ __html: job.fee
- }} />
-                </div>
-                <div className="flex flex-col justify-center text-justify my-2 w-[90%] md:w-[70%] table-auto">
+                </div>:""}
+                {job.qualificationDetail?<div className="flex flex-col justify-center text-justify my-2 w-[90%] md:w-[70%]">
+                <span className="text-red-700 font-semibold text-justify items-stretch">योग्यता:</span><div dangerouslySetInnerHTML={{ __html: job.qualificationDetail}} />
+                </div>:""}
+                {job.fee?<div className="flex flex-col justify-center text-justify my-2 w-[90%] md:w-[70%]">
+                <span className="text-red-700 font-semibold text-justify items-stretch">आवेदन शुल्क:</span><div dangerouslySetInnerHTML={{ __html: job.fee}} />
+                </div>:""}
+                {job.vacancyDetails1? <div className="flex flex-col justify-center text-justify my-2 w-[90%] md:w-[70%] table-auto">
                 <span className="text-red-700 font-semibold text-justify items-stretch">विवरण:</span>
                 <div >
-                <div className='w-full overflow-scroll'  dangerouslySetInnerHTML={{ __html: job.vacancyDetails1
- }} />
+                <div className='w-full overflow-scroll'  dangerouslySetInnerHTML={{ __html: job.vacancyDetails1 }} />
                 </div>
                 <div>
-                <div className='w-full overflow-scroll' dangerouslySetInnerHTML={{ __html: job.vacancyDetails2
- }} />
+                <div className='w-full overflow-scroll' dangerouslySetInnerHTML={{ __html: job.vacancyDetails2}} />
                 </div>
-                </div>
-                <div className="flex flex-col justify-center text-justify my-2 w-[90%] md:w-[70%]">
+                </div>:""}
+                {job.impLinks?<div className="flex flex-col justify-center text-justify my-2 w-[90%] md:w-[70%]">
                 <span className="text-red-700 font-semibold text-justify items-stretch">महत्वपूर्ण लिंक:</span>
                 <div>
                 <div dangerouslySetInnerHTML={{ __html: job.impLinks}} />
                 </div>
-                </div>
+                </div>:""}
                 
             </div>
            

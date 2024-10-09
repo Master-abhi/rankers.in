@@ -10,26 +10,26 @@ const Navbar = () => {
     const [selectedPage, setSelectedPage] = useState("");
     const [userDetail, setUserDetail] =  useState(null)
 
-    const fetchuser = async ()=>{
-        auth.onAuthStateChanged(async(user)=>{
-            if(user){
-                const docRef = doc(db, "Users", user.uid);
-                const docId = await getDoc(docRef);
-                if (docId.exists()){
-                    setUserDetail(docId.data())
-                    console.log(docId.data())
-                }
+    // const fetchuser = async ()=>{
+    //     auth.onAuthStateChanged(async(user)=>{
+    //         if(user){
+    //             const docRef = doc(db, "Users", user.uid);
+    //             const docId = await getDoc(docRef);
+    //             if (docId.exists()){
+    //                 setUserDetail(docId.data())
+    //                 console.log(docId.data())
+    //             }
 
-            }
-            else{
-                console.log("user not logged in.")
-            }
-        })
-    }
+    //         }
+    //         else{
+    //             console.log("user not logged in.")
+    //         }
+    //     })
+    // }
 
-  useEffect(()=>{
-    fetchuser();
-},[])
+//   useEffect(()=>{
+//     fetchuser();
+// },[])
 
     // Set the selected page based on the current URL when the component mounts
     useEffect(() => {
