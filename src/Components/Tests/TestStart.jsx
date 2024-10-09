@@ -143,7 +143,9 @@ const TestStart = () => {
   return (
     <>
     {loading ? (
-      <div>Loading...</div>  // Show a loading message while the data is being fetched
+      <div className="h-[200px] w-full flex items-center justify-center">
+      <i>Loading...</i>
+      </div>  // Show a loading message while the data is being fetched
     ) : (
       !isTestCompleted ? (
         <div>
@@ -241,17 +243,21 @@ const TestStart = () => {
                   Submit Test
                 </div>
               </div>
+              <div className="h-[50px]">
+
+              </div>
             </div>
           </div>
         </div>
         ) : (
-        <div className="w-full flex justify-center items-center flex-col">
+          <div className="w-[100vw] h-[100vh] flex items-center flex-col border border-black">
+        <div className="w-[300px] h-[230px] m-10  flex items-center flex-col rounded-2xl bg-[#eff7f1]">
           <div className={`w-full flex items-center flex-col py-4`}>
-            <h1>Test Completed!</h1>
-            <p>Your final score is: {score}/{test.questions.length}</p>
-            <p>Total time taken: {formatTime(timeTaken)}</p>
+            <h1 className="text-[#38874C] font-bold">Test Completed !</h1>
+            <p className="my-5"><span className="text-red-700 font-semibold">Your final score is:</span> {score}/{test.questions.length}</p>
+            <p><span className="text-red-700 font-semibold">Total time taken:</span> {formatTime(timeTaken)}</p>
           </div>
-          <div className=" w-full flex justify-center items-center  border-gray-50 ">
+          <div className=" w-full flex justify-center items-center my-5 border-gray-50 ">
           <div className={`${styles.queBtns} mx-5`}>
               <Link to={`/tests`}>Retake Test</Link>
             </div>
@@ -259,7 +265,7 @@ const TestStart = () => {
               <Link to={`/tests/solution/${testId}`}>Solution</Link>
             </div>
           </div>
-
+          </div>
         </div>
         )
       

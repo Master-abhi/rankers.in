@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import {db} from "../../firebaseinit"
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
 import styles from "../../Styles/Home.module.css";
 import { storage } from "../../firebaseinit";
 
@@ -9,23 +9,32 @@ const Home = () => {
 
   const [highlightedJobs, setHightlightedJobs] = useState([]);
   const [tests, setTests] = useState([]);
+  const [loading, setLoading]= useState(true);
 
   useEffect(()=>{
         
-    const unsubscribe1 = onSnapshot(collection(db, "highlightedJobs"), snapShot => {
-        const jobs = snapShot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data()
-        }));
-        setHightlightedJobs(jobs);
-    });
-    const unsubscribe2 = onSnapshot(collection(db, "tests"), snapShot => {
-      const tests = snapShot.docs.map(doc => ({
+
+    const unsubscribe1 = onSnapshot(
+      query(collection(db, "highlightedJobs"), orderBy("timeStamp", "desc")),
+      (snapshot) => {
+        const jobs = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+      }));
+      setHightlightedJobs(jobs);
+      }
+    );
+    const unsubscribe2 = onSnapshot(
+      query(collection(db, "tests"), orderBy("timeStamp", "desc")),
+      (snapshot) => {
+        const tests = snapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data()
       }));
       setTests(tests);
-  });
+      setLoading(false)
+      }
+    );
 
 
 
@@ -57,7 +66,9 @@ const Home = () => {
         </div>
         <div className="exam-div h-full w-full md:w-3/5">
           
-          <div className="exams flex flex-wrap h-70 w-full p-2 my-5 rounded-md bg-[#edfff2]">
+          {loading? <div className="h-[200px] w-full flex items-center justify-center">
+            <i>Loading...</i>
+          </div> : <div className="exams flex flex-wrap h-70 w-full p-2 my-5 rounded-md bg-[#edfff2]">
           {highlightedJobs.map((data)=>
                  data.newMark === true ? <Link to={`/jobs/${data.id}`} className="w-full"> 
                   <div key={data.id} className={styles.examDiv} ><h1>{data.JobsName}</h1></div>
@@ -70,7 +81,7 @@ const Home = () => {
                 more Jobs
               </div>
             </Link>
-          </div>
+          </div>}
         </div>
         {/*-------------------------------------------------- Tests -------------------------------------------------- */}
         <div className="h-10 w-full md:w-3/5 m-5 rounded-md flex justify-center items-center ">
@@ -82,7 +93,9 @@ const Home = () => {
         </div>
         <div className="test-div w-full md:w-3/5">
           
-          <div className="exams flex flex-wrap h-70 w-full p-2 my-5 rounded-md bg-[#edfff2]">
+        {loading? <div className="h-[200px] w-full flex items-center justify-center">
+          <i>Loading...</i>
+          </div> :<div className="exams flex flex-wrap h-70 w-full p-2 my-5 rounded-md bg-[#edfff2]">
           {tests.map((data)=>
                  data.newMark === true ? <Link to={`/tests/${data.id}`} className="w-full"> 
                   <div key={data.id} className={styles.examDiv} ><h1>{data.testName}</h1></div>
@@ -94,7 +107,7 @@ const Home = () => {
                 more Tests
               </div>
             </Link>
-          </div>
+          </div>}
         </div>
         <div className="h-[50px]"></div>
       </div>

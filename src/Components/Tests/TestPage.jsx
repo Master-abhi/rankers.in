@@ -1,7 +1,7 @@
 import styles from "../../Styles/Testpage.module.css"
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { collection, onSnapshot, orderBy } from "firebase/firestore";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import {db} from "../../firebaseinit"
 
 
@@ -9,6 +9,7 @@ const TestPage = ()=>{
     const [selectedExam, setSelectedExam] = useState("UPSC");
     const [selectedTest, setSelectedTest] = useState("UPSC");
     const [tests, setTests] = useState([]);
+    const [loading, setLoading] =useState(true);
   
     const handleExamClick = (exam) => {
       setSelectedExam(exam);
@@ -21,13 +22,17 @@ const TestPage = ()=>{
     useEffect(()=>{
           
   
-      const unsubscribe1 = onSnapshot(collection(db, "tests"), snapShot => {
-          const tests = snapShot.docs.map(doc => ({
-              id: doc.id,
-              ...doc.data()
-          }));
-          setTests(tests);
-      });
+      const unsubscribe1 = onSnapshot(
+        query(collection(db, "tests"), orderBy("timeStamp", "desc")),
+        (snapshot) => {
+          const tests = snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }));
+        setTests(tests);
+        setLoading(false)
+        }
+      );
   
   
       return () => {
@@ -49,14 +54,16 @@ const TestPage = ()=>{
           <img className="h-10 w-10" src="https://cdn-icons-gif.flaticon.com/13109/13109971.gif"/>
           <div className="w-full h-1 border bg-red-700"></div>
         </div>
-        <div className="exams flex flex-wrap h-70 w-full p-2 my-5 rounded-md bg-[#edfff2]">
+        {loading? <div className="h-[200px] w-full flex items-center justify-center">
+          <i>Loading...</i>
+          </div> :<div className="exams flex flex-wrap h-70 w-full p-2 my-5 rounded-md bg-[#edfff2]">
             {tests.map((data)=>
                  data.newMark === true ? <Link to={`/tests/${data.id}`} key={data.id} className="w-full"> 
                   <div key={data.id} className={styles.examDiv} ><h1>{data.testName}</h1></div>
                   </Link> : ""
               )}
 
-          </div>
+          </div>}
 
           <div className="h-10 w-full m-5 rounded-md flex justify-center items-center ">
           <div className="w-full h-1 border bg-red-700"></div>
@@ -120,14 +127,16 @@ const TestPage = ()=>{
               BANKING
             </div>
           </div>
-           <div className={styles.examContainer}>
+          {loading? <div className="h-[200px] w-full flex items-center justify-center">
+          <i>Loading...</i>
+          </div> :<div className={styles.examContainer}>
             
            {tests.map((data)=>
                  data.belongsTo === selectedExam && data.newMark !== true ? <Link to={`/tests/${data.id}`} key={data.id} className="w-full"> 
                   <div key={data.id} className={styles.examDiv} ><h1>{data.testName}</h1></div>
                   </Link> : ""
               )}
-           </div>
+           </div>}
 
                        
         </div>

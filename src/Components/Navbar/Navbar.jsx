@@ -69,7 +69,7 @@ const Navbar = () => {
                         </Link>
                         <Link to="/news">
                             <li
-                                className={`mx-8 hover:text-black font-400 hover:border-b ${
+                                className={`mx-8 hover:text-[] font-400 hover:border-b ${
                                     selectedPage === "updates" ? styles.selectedLink : ""
                                 }`}
                                 onClick={() => setSelectedPage("updates")}
@@ -79,7 +79,7 @@ const Navbar = () => {
                         </Link>
                         <Link to="/jobs">
                             <li
-                                className={`mx-8 hover:text-black font-400 hover:border-b ${
+                                className={`mx-8 hover:text-[] font-400 hover:border-b ${
                                     selectedPage === "exams" ? styles.selectedLink : ""
                                 }`}
                                 onClick={() => setSelectedPage("exams")}
@@ -99,7 +99,7 @@ const Navbar = () => {
                         </Link> */}
                         <Link to="/tests">
                             <li
-                                className={`mx-8 hover:text-black font-400 hover:border-b ${
+                                className={`mx-8 hover:text-[] font-400 hover:border-b ${
                                     selectedPage === "tests" ? styles.selectedLink : ""
                                 }`}
                                 onClick={() => setSelectedPage("tests")}

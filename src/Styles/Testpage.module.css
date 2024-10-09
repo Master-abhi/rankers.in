@@ -180,7 +180,7 @@
 }
 
 .optionBtn{
-    height: 40px;
+    height: 50px;
     border: 1px solid white;
     margin: 5px;
     display: flex;
@@ -209,7 +209,7 @@
 .queBtns{
     border-radius: 3px;
     height: 35px;
-    width: 100px;
+    width: 120px;
     display: flex;
     align-items: center; 
     justify-content: center;

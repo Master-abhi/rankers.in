@@ -1,4 +1,4 @@
-import { collection, onSnapshot, orderBy } from "firebase/firestore";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import {db} from "../../firebaseinit"
 import { Link } from "react-router-dom";
@@ -6,22 +6,26 @@ import styles from "../../Styles/Home.module.css"
 
 const JobsPage = ()=>{
     const [highlightedJobs, setHightlightedJobs] = useState([]);
-    const [jobNotifications, setJobNotifications] = useState([])
-    const [admitCards, setAdmitCards] = useState([])
-    const [results, setResults] = useState([])
+    const [loading, setLoading] = useState(true);
+    // const [jobNotifications, setJobNotifications] = useState([])
+    // const [admitCards, setAdmitCards] = useState([])
+    // const [results, setResults] = useState([])
 
 
     useEffect(()=>{
         
 
-        const unsubscribe1 = onSnapshot(collection(db, "highlightedJobs"), orderBy('timeStamp'), snapShot => {
-            const jobs = snapShot.docs.map(doc => ({
+        const unsubscribe1 = onSnapshot(
+            query(collection(db, "highlightedJobs"), orderBy("timeStamp", "desc")),
+            (snapshot) => {
+              const jobs = snapshot.docs.map(doc => ({
                 id: doc.id,
                 ...doc.data()
             }));
             setHightlightedJobs(jobs);
-            
-        });
+            setLoading(false);
+            }
+          );
 
 
         return () => {
@@ -30,7 +34,7 @@ const JobsPage = ()=>{
         };
     },[])
 
-    console.log(highlightedJobs);
+
 
     return (
         <>
@@ -44,14 +48,22 @@ const JobsPage = ()=>{
                 <img className="h-10 w-10" src="https://cdn-icons-gif.flaticon.com/13109/13109971.gif"/>
                 <div className="w-full h-1 border bg-red-700"></div>
             </div>
-            <div className="exams flex flex-wrap h-70 w-full p-2 my-10 rounded-md bg-[#edfff2]">
-            {highlightedJobs.map((data)=>
-                 data.newMark === true ? <Link to={`/jobs/${data.id}`} key={data.id} className="w-full"> 
-                  <div key={data.id} className={styles.examDiv} ><h1>{data.JobsName}</h1></div>
-                  </Link> : ""
-              )}
+            {loading? <div className="h-[200px] w-full flex items-center justify-center">
+          <i>Loading...</i>
+          </div> :<div className="exams flex flex-wrap h-70 w-full p-2 my-10 rounded-md bg-[#edfff2]">
+                {highlightedJobs.map((data) =>
+                    data.newMark === true ? (
+                    <Link to={`/jobs/${data.id}`} key={data.id} className="w-full">
+                        <div key={data.id} className={styles.examDiv}>
+                        <h1>{data.JobsName}</h1>
+                        </div>
+                    </Link>
+                    ) : (
+                    ""
+                    )
+                )}
+                </div>}
 
-          </div>
                 {/*----------------------------------------------- jobs Notifications ----------------------------------------------*/}
 
                     <div id="jobs-nitifications" className="h-full w-full">
@@ -64,6 +76,9 @@ const JobsPage = ()=>{
                         <div className="w-full h-1 border bg-red-700"></div>
                         </div>
                         <div className="flex flex-col w-full md:flex-row justify-around items-center">
+                        {loading? <div className="h-[200px] w-full flex items-center justify-center">
+                        <i>Loading...</i>
+                        </div> :
                         <div className="exams flex flex-wrap h-70 w-full p-2 my-5 rounded-md ">
                             {highlightedJobs.map((data)=>
                                 data.newMark !== true ? <Link to={`/jobs/${data.id}`} key={data.id} className="w-full"> 
@@ -71,7 +86,7 @@ const JobsPage = ()=>{
                                 </Link> : ""
                             )}
 
-                        </div>
+                        </div>}
                         </div>
                     </div>
                     </div>

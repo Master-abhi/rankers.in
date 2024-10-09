@@ -15,23 +15,32 @@ const JobShow = () => {
       const unsubscribe = onSnapshot(jobDocRef, (docSnapshot) => {
         if (docSnapshot.exists()) {
           setJob({ id: docSnapshot.id, ...docSnapshot.data() });
-          console.log(job)
         } else {
           console.log("No such document!");
         }
         setLoading(false); // Set loading to false when data is fetched
       });
-      console.log(job)
-
       return () => {
         unsubscribe();
       };
     }
-
-    console.log(job.vacancyDetails)
   }, [jobId]);  // Empty dependency array ensures it runs once on mount
 
-  
+  const handleShare= (data)=> {if (navigator.share) {
+    navigator.share({
+      title: `${data.JobsName}`,
+      text: `Check out this job opportunity: ${data.JobsName}`,
+      url: window.location.href + `jobs/${data.id}`,
+    }).then(() => {
+      console.log('Successfully shared');
+    }).catch((error) => {
+      console.error('Error sharing', error);
+    });
+  } else {
+    // Fallback for desktop browsers
+    navigator.clipboard.writeText(window.location.href + `jobs/${data.id}`);
+    alert('Link copied to clipboard!');
+  }}
 
   return (
     <>
@@ -40,9 +49,9 @@ const JobShow = () => {
           {/* adLeft */}
         </div>
         {loading ? (
-              <div className="flex justify-center items-center h-100 w-full">
-                <p>Loading job details...</p>
-              </div>
+              <div className="h-[200px] w-full flex items-center justify-center">
+              <i>Loading...</i>
+              </div> 
             ) : job ? (
 
               
@@ -58,7 +67,13 @@ const JobShow = () => {
                 <img className='h-[100px] w-[100px] bg-blend-color-dodge' src={job.logo}/>
               </div>:""}
                 <div className="flex items-center justify-center my-1 w-[90%]">
-                  <h1 className='text-red-700 text-center font-bold text-xl w-[90%]'>{job.JobsName}</h1>
+                  <h1 className='text-red-700 text-center font-bold text-xl mx-10'>{job.JobsName}</h1>
+                  {/* <button
+                    className="bg-white text-white rounded-full h-10 w-10 "
+                    onClick={() => handleShare(job)}
+                  >
+                    <img src="https://cdn-icons-png.flaticon.com/128/10550/10550076.png" className='h-full w-full'/>
+                  </button> */}
                 </div>
                 {job.postDate?<div className="flex items-center justify-center my-1 w-full">
                   <p>Post Date : {job.postDate}</p>
@@ -69,6 +84,8 @@ const JobShow = () => {
 
               </div>
             </div>
+                      {/* Share Button */}
+
             <div className="flex flex-col justify-center items-center w-full">
               <div className="h-10 w-full text-center text-xl text-red-700 font-bold flex justify-center items-center">
                 Vacancy Details

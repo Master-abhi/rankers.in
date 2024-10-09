@@ -5,7 +5,7 @@ const NewsCard = (props)=>{
     return(
         <>
         
-        <div className=" md:h-[200px] w-full md:w-[75%] my-4 p-2 rounded-xl flex flex-col md:flex-row overflow-hidden bg-[#e4e3e3]">
+        <div className=" w-full md:w-[85%] my-4 p-2 rounded-xl flex flex-col md:flex-row overflow-hidden bg-[#e4e3e3]">
             <div className=" w-full md:w-[45%]  p-2 overflow-hidden">
             <a href={props.news.url}>
                 <img className="h-[100%] w-full object-cover rounded-md" src={props.news.imgUrl}/>
@@ -25,7 +25,7 @@ const NewsCard = (props)=>{
                     </div>
 
                 </div>
-                <div className="w-full flex text-start font-bold my-2">
+                <div className="w-full flex text-justify font-bold my-2 ">
                     <a href={props.news.url} target="blank">
                 {props.news.title}
                 </a>
