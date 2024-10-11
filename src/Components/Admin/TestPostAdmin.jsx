@@ -1,6 +1,7 @@
 import { collection, addDoc } from "firebase/firestore";
 import { auth, db } from "../../firebaseinit";
 import { useState, useRef, useEffect } from "react";
+import { toast } from "react-toastify";
 
 const TestPostAdmin = () => {
   const [isNew, setIsNew] = useState();
@@ -100,6 +101,8 @@ useEffect(()=>{
         postDate: postDateRef.current.value,
         timeStamp: new Date().toISOString()
       });
+
+      toast.success("Test added!!")
 
       // Clear input fields after submission
       testNameRef.current.value = "";

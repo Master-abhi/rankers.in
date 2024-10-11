@@ -2,6 +2,7 @@ import {collection, addDoc, setDoc, onSnapshot, Timestamp} from "firebase/firest
 import {auth, db} from "../../firebaseinit";
 import { useState, useRef, useEffect } from "react";
 import * as XLSX from "xlsx";
+import { toast } from "react-toastify";
 
 const JobPostAdmin = ()=>{
     const [isNew, setIsNew] = useState();
@@ -273,7 +274,8 @@ const JobPostAdmin = ()=>{
             tags:e.t,
             timeStamp: Date.now()
         });
-    //    clearInput();
+        toast.success("Job added!!")
+       clearInput();
     }
 
 

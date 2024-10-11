@@ -1,4 +1,4 @@
-import {collection, doc, setDoc, deleteDoc, onSnapshot} from "firebase/firestore";
+import {collection, doc, setDoc, query, orderBy, deleteDoc, onSnapshot} from "firebase/firestore";
 import {auth, db} from "../../firebaseinit";
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -28,13 +28,18 @@ const UpdatesAdmin = ()=>{
     useEffect(()=>{
           
   
-        const unsubscribe1 = onSnapshot(collection(db, "updates"), snapShot => {
-            const article = snapShot.docs.map(doc => ({
+        const unsubscribe1 = onSnapshot(
+            query(collection(db, "updates"), orderBy("timeStamp", "desc")),
+            (snapshot) => {
+              const article = snapshot.docs.map((doc) => ({
                 id: doc.id,
-                ...doc.data()
-            }));
-            setNewsdata(article);
-        });
+                ...doc.data(),
+              }));
+              setNewsdata(article);
+              setLoading(false)
+            }
+          );
+    
     
   
   
@@ -69,12 +74,12 @@ const UpdatesAdmin = ()=>{
           
     <div className="bg-slate-50 md:flex w-full h-full">
 
-            <div className="max-h-full w-full bg-[#F6F6F2]  flex-col md:flex items-center justify-center ">
+            <div className="h-full w-full bg-[#F6F6F2]  flex-col md:flex items-center justify-center ">
                 
                     
                     {
                     newsdata.map((news)=>(
-                        <div className=" md:h-[200px] w-full md:w-[75%] my-4 p-2 rounded-xl flex flex-col md:flex-row overflow-hidden bg-[#D8D7D7]">
+                        <div className=" h-full w-full my-4 p-2 rounded-xl flex flex-col md:flex-row overflow-hidden bg-[#D8D7D7]">
                             <div className=" w-full md:w-[45%]  p-2 overflow-hidden">
                             <a href={news.url}>
                                 <img className="h-[100%] w-full object-cover rounded-md" src={news.imgUrl}/>

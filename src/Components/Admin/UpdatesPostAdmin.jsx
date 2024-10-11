@@ -2,6 +2,7 @@ import {collection, addDoc, setDoc, onSnapshot, Timestamp} from "firebase/firest
 import {auth, db} from "../../firebaseinit";
 import { useState, useRef, useEffect } from "react";
 import * as XLSX from "xlsx";
+import { toast } from "react-toastify";
 
 const UpdatePostAdmin = ()=>{
 
@@ -11,6 +12,7 @@ const UpdatePostAdmin = ()=>{
     const titleRef = useRef();
     const postDateRef  = useRef();
     const sourceRef  = useRef();
+    const urlRef  = useRef();
 
 
     const clearInput = ()=>{
@@ -18,6 +20,7 @@ const UpdatePostAdmin = ()=>{
         titleRef.current.value = "";
         postDateRef.current.value = "";
         sourceRef.current.value = "";
+        urlRef.current.value = "";
 
 
     }
@@ -50,9 +53,11 @@ const UpdatePostAdmin = ()=>{
             title: e.t.current.value,
             postDate: e.pd.current.value,
             source: e.s.current.value,
+            url: e.u.current.value,
             timeStamp: new Date()
         });
-    //    clearInput();
+        toast.success("News added!!")
+       clearInput();
     }
 
 
@@ -83,11 +88,16 @@ const UpdatePostAdmin = ()=>{
                             <input type="text" ref={sourceRef} className="border border-black w-[80%] m-5" />
                         </div>
                         <div className="text-center flex items-center justify-center">
+                            <span className="text-center">Enter Source url: </span>
+                            <input type="text" ref={urlRef} className="border border-black w-[80%] m-5" />
+                        </div>
+                        <div className="text-center flex items-center justify-center">
                         <div type="submit" className="border border-black w-20 rounded-md" onClick={()=> addUpdate(
                             {iu: imgUrlRef,
                                 t: titleRef,
                                 pd: postDateRef,
-                                s: sourceRef
+                                s: sourceRef,
+                                u: urlRef,
                             }
                         )}>submit</div>
                         </div>
