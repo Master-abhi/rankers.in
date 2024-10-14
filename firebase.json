@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "rankers",
     "public": "y",
     "ignore": [
       "firebase.json",
