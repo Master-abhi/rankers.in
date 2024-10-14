@@ -50,10 +50,9 @@ const Home = () => {
     <>
       {/*-------------------------------------------------- Highlighted jobs-------------------------------------------------- */}
       <div className="flex items-center justify-center flex-col">
-        <div className="h-60 w-[90%] md:w-3/5 m-10 rounded-md flex flex-col items-center p-1 bg-[#38874C]">
-        <img className="h-[80px] w-[190px] " src="https://firebasestorage.googleapis.com/v0/b/rankers-c47cb.appspot.com/o/Rankers_logow.png?alt=media&token=aa181219-fc8a-4dec-8ded-4e452cc573e0"/>
-        <div><h1 className="text-white text-2xl">Welcome to Rankers.in </h1> </div>  
-        <div><h1 className="text-white text-center text-lg"> Free News Updates <br/> Free Job Notifications <br/> Free Test series </h1> </div>  
+        <div className="h-full w-full md:w-3/5 m-10 rounded-md flex flex-col items-center bg-[#38874C]">
+        <img className="h-full w-auto" src="https://firebasestorage.googleapis.com/v0/b/rankers-c47cb.appspot.com/o/banner.png?alt=media&token=6fb28917-fa91-4e5e-8d90-7a9fe412d36d"/>
+ 
 
         </div>
         {/*-------------------------------------------------- Exams -------------------------------------------------- */}

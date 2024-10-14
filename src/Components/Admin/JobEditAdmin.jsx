@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 const JobEditAdmin = ()=>{
   const {jobId} = useParams(); 
   const [job, setJob] = useState([]);
-    const [isNew, setIsNew] = useState();
+    const [isNew, setIsNew] = useState(true);
 
  
     const nameRef = useRef();
