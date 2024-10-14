@@ -22,6 +22,8 @@ import TestsAdmin from "./Components/Admin/TestAdmin";
 import TestPostAdmin from "./Components/Admin/TestPostAdmin";
 import AdminSignUp from "./Components/Admin/AdminSignUp";
 import AdminLogin from "./Components/Admin/AdminLogin";
+import UpdateEditAdmin from "./Components/Admin/UpdatesEditAdmin";
+import JobEditAdmin from "./Components/Admin/JobEditAdmin";
 
 function Layout() {
   return (
@@ -54,7 +56,9 @@ function App() {
         { path: "admin/tests-admin", element: <TestsAdmin /> },
         { path: "admin/tests-admin/test-post-admin", element: <TestPostAdmin /> },
         { path: "adminSignUp", element: <AdminSignUp /> },
-        { path: "adminLogin", element: <AdminLogin/>}
+        { path: "adminLogin", element: <AdminLogin/>},
+        { path: "admin/updates-admin/updates-edit-admin/:updateId", element: <UpdateEditAdmin />},
+        { path: "admin/jobs-admin/jobs-edit-admin/:jobId", element: <JobEditAdmin />}
       ],
     },
   ]);

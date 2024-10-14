@@ -1,17 +1,10 @@
 {
   "hosting": {
-    "site": "rankers",
-    "public": "y",
+    "public": "public",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
     ]
   }
 }

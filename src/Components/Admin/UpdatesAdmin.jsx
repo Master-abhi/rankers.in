@@ -50,6 +50,10 @@ const UpdatesAdmin = ()=>{
       };
   },[])
 
+  const editBtn = () =>{
+
+  }
+
     const deleteBtn = async (id)=>{
         await deleteDoc(doc(db, "updates", id));
     }
@@ -109,7 +113,15 @@ const UpdatesAdmin = ()=>{
                                     {news.content}
                                     </p>
                                 </div> */}
-                                <div className="bg-red-600 h-10 w-20 mb-1 flex items-center cursor-pointer justify-center text-white text-center rounded-md self-end" onClick={()=>deleteBtn(news.id)}>Delete</div>
+                                <div className="flex self-end">
+                                <Link to={`updates-edit-admin/${news.id}`}>
+                                    <div className="bg-blue-300 h-10 w-20 m-1 flex items-center cursor-pointer justify-center text-white text-center rounded-md self-end">
+                                    Edit</div>
+                                    </Link>
+                               
+                                <div className="bg-red-600 h-10 w-20 m-1 flex items-center cursor-pointer justify-center text-white text-center rounded-md self-end" onClick={()=>deleteBtn(news.id)}>
+                                    Delete</div>
+                                    </div>
                             </div>
                             
                         </div>
