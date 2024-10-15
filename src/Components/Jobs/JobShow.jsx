@@ -26,22 +26,46 @@ const JobShow = () => {
     }
   }, [jobId]);  // Empty dependency array ensures it runs once on mount
 
-  const handleShare= (data)=> {if (navigator.share) {
-    navigator.share({
-      title: `${data.JobsName}`,
-      text: `Check out this job opportunity: ${data.JobsName}`,
-      url: window.location.href + `jobs/${data.id}`,
-    }).then(() => {
-      console.log('Successfully shared');
-    }).catch((error) => {
-      console.error('Error sharing', error);
-    });
-  } else {
-    // Fallback for desktop browsers
-    navigator.clipboard.writeText(window.location.href + `jobs/${data.id}`);
-    alert('Link copied to clipboard!');
-  }}
 
+  function copyLink() {
+    const url = `https://rankers-beta.vercel.app/jobs/${jobId}`;
+
+    // Check if navigator.clipboard is available
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(url).then(() => {
+            alert('Link copied to clipboard!');
+        }).catch(err => {
+            console.error('Error copying text: ', err);
+            fallbackCopyTextToClipboard(url);
+        });
+    } else {
+        // Fallback for older browsers
+        fallbackCopyTextToClipboard(url);
+    }
+}
+
+function fallbackCopyTextToClipboard(text) {
+    // Create a temporary text area to hold the text to copy
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    textArea.style.position = "fixed";  // Avoid scrolling to bottom
+    document.body.appendChild(textArea);
+    
+    // Select the text and copy it
+    textArea.focus();
+    textArea.select();
+    
+    try {
+        const successful = document.execCommand('copy');
+        const msg = successful ? 'Link copied to clipboard!' : 'Unable to copy';
+        alert(msg);
+    } catch (err) {
+        console.error('Fallback: Oops, unable to copy', err);
+    }
+    
+    // Remove the temporary text area
+    document.body.removeChild(textArea);
+}
   return (
     <>
       <div className="bg-slate-50 md:flex h-full w-full">
@@ -63,8 +87,8 @@ const JobShow = () => {
 
             <div className="flex justify-center items-center w-full">
               <div className="flex justify-center items-center flex-col w-full">
-              {job.logo?<div className='h-40 w-40 p-2 flex justify-center items-center bg-blend'>
-                <img className='h-[100px] w-[100px] bg-blend-color-dodge' src={job.logo}/>
+              {job.logo?<div className='h-[100px] w-[100px] p-2 flex justify-center items-center bg-blend'>
+                <img className='h-[auto] w-[100px] bg-blend-color-dodge' src={job.logo}/>
               </div>:""}
                 <div className="flex items-center justify-center my-1 w-[90%]">
                   <h1 className='text-red-700 text-center font-bold text-xl mx-10'>{job.JobsName}</h1>
@@ -85,6 +109,15 @@ const JobShow = () => {
               </div>
             </div>
                       {/* Share Button */}
+                      <div className='flex justify-center items-center w-full my-4'>
+                      <a href={`https://api.whatsapp.com/send?text=Check out this Job post: rankers-beta.vercel.app/jobs/${jobId}`} target="_blank">
+                          <img src="https://cdn-icons-png.flaticon.com/128/15707/15707820.png" alt="WhatsApp" className='h-[40px] w-[40px] mx-2'/>
+                      </a>
+                      <a href={`https://www.facebook.com/sharer/sharer.php?u=https://rankers-beta.vercel.app/jobs/${jobId}`} target="_blank">
+                          <img src="https://cdn-icons-png.flaticon.com/128/5968/5968764.png" alt="Facebook" className='h-[40px] w-[40px] mx-2'/>
+                      </a>
+                      <div onClick={()=>copyLink()}><img src="https://cdn-icons-png.flaticon.com/128/7073/7073707.png" alt="copy link" className='h-[40px] w-[40px] mx-2'/></div>
+                      </div>
 
             <div className="flex flex-col justify-center items-center w-full">
               <div className="h-10 w-full text-center text-xl text-red-700 font-bold flex justify-center items-center">
