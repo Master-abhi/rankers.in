@@ -52,7 +52,7 @@ const Navbar = () => {
             <div className={styles.main}>
                 <div className={styles.logo}>
                 <Link to="/">
-                <img className="h-[80px] w-[190px] m-0" src="https://firebasestorage.googleapis.com/v0/b/rankers-c47cb.appspot.com/o/Rankers_logow.png?alt=media&token=aa181219-fc8a-4dec-8ded-4e452cc573e0"/>
+                <img className="h-[60px] w-[170px] m-0" src="https://firebasestorage.googleapis.com/v0/b/rankers-c47cb.appspot.com/o/RANKERS.png?alt=media&token=954fca01-4fe2-4b03-9b21-7cdb6fe3fa92"/>
                 </Link>
                 </div>
                 <div className={styles.links}>

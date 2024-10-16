@@ -75,7 +75,7 @@ const TestPage = ()=>{
 
             <div className="exam-agency w-full h-full flex items-center justify-between flex-wrap md:justify-around">
             <div
-              className={`h-8 w-[100px] md:w-1/6 p-4 mx-1 my-5 flex items-center border-2 hover:border-[#38874C] justify-center rounded-md shadow-xl shadow-[#a6d6b2]  
+              className={`h-8 w-[100px] md:w-1/6 p-4 mx-1 my-5 cursor-pointer flex items-center border-2 hover:border-[#38874C] justify-center rounded-md shadow-xl shadow-[#a6d6b2]  
                  ${
                 selectedExam === "UPSC" ? "text-white border-[#38874C]" : "text-black"
               }
@@ -86,7 +86,7 @@ const TestPage = ()=>{
             >
               UPSC
             </div>
-            <div className={`h-8 w-[100px] md:w-1/6 p-4 mx-1 my-5  flex items-center border-2  hover:border-[#38874C] justify-center rounded-md shadow-xl shadow-[#a6d6b2]  
+            <div className={`h-8 w-[100px] md:w-1/6 p-4 mx-1 my-5 cursor-pointer flex items-center border-2  hover:border-[#38874C] justify-center rounded-md shadow-xl shadow-[#a6d6b2]  
                  ${
                 selectedExam === "SSC" ? "text-white border-[#38874C]" : "text-black"
               }
@@ -96,7 +96,7 @@ const TestPage = ()=>{
               onClick={() => handleExamClick("SSC")}>
               SSC
             </div>
-            <div className={`h-8 w-[100px] md:w-1/6 p-4 mx-1 my-5  flex items-center border-2 hover:border-[#38874C] justify-center rounded-md shadow-xl shadow-[#a6d6b2]  
+            <div className={`h-8 w-[100px] md:w-1/6 p-4 mx-1 my-5 cursor-pointer flex items-center border-2 hover:border-[#38874C] justify-center rounded-md shadow-xl shadow-[#a6d6b2]  
                  ${
                 selectedExam === "CGVYAPAM" ? "text-white border-[#38874C]" : "text-black"
               }
@@ -106,7 +106,7 @@ const TestPage = ()=>{
               onClick={() => handleExamClick("CGVYAPAM")}>
               CGVYAPAM
             </div>
-            <div className={`h-8 w-[100px] md:w-1/6 p-4 mx-1 my-5  flex items-center border-2 hover:border-[#38874C] justify-center rounded-md shadow-xl shadow-[#a6d6b2]  
+            <div className={`h-8 w-[100px] md:w-1/6 p-4 mx-1 my-5 cursor-pointer flex items-center border-2 hover:border-[#38874C] justify-center rounded-md shadow-xl shadow-[#a6d6b2]  
                  ${
                 selectedExam === "RAILWAY" ? "text-white border-[#38874C]" : "text-black"
               }
@@ -116,7 +116,7 @@ const TestPage = ()=>{
               onClick={() => handleExamClick("RAILWAY")}>
               RAILWAY
             </div>
-            <div className={`h-8 w-[100px] md:w-1/6 p-4 mx-1 my-5  flex items-center border-2 hover:border-[#38874C] justify-center rounded-md shadow-xl shadow-[#a6d6b2]  
+            <div className={`h-8 w-[100px] md:w-1/6 p-4 mx-1 my-5 cursor-pointer flex items-center border-2 hover:border-[#38874C] justify-center rounded-md shadow-xl shadow-[#a6d6b2]  
                  ${
                 selectedExam === "BANKING" ? "text-white border-[#38874C]" : "text-black"
               }

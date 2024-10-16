@@ -4,6 +4,7 @@ import {db} from "../../firebaseinit"
 import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
 import styles from "../../Styles/Home.module.css";
 import { storage } from "../../firebaseinit";
+import Footer from "../Navbar/Footer";
 
 const Home = () => {
 
@@ -51,7 +52,7 @@ const Home = () => {
       {/*-------------------------------------------------- Highlighted jobs-------------------------------------------------- */}
       <div className="flex items-center justify-center flex-col">
         <div className="h-full w-full md:w-3/5 m-10 rounded-md flex flex-col items-center bg-[#38874C]">
-        <img className="h-full w-auto" src="https://firebasestorage.googleapis.com/v0/b/rankers-c47cb.appspot.com/o/banner.png?alt=media&token=6fb28917-fa91-4e5e-8d90-7a9fe412d36d"/>
+        <img className="h-full w-auto" src="https://firebasestorage.googleapis.com/v0/b/rankers-c47cb.appspot.com/o/rankers%20banner.png?alt=media&token=8ad787a1-480f-4f0d-bbe8-833704b965c3"/>
  
 
         </div>
@@ -108,6 +109,7 @@ const Home = () => {
             </Link>
           </div>}
         </div>
+        <Footer/>
         <div className="h-[50px]"></div>
       </div>
     </>

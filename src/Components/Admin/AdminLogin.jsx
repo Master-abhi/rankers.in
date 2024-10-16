@@ -64,7 +64,7 @@ const AdminLogin = () => {
          
           <button type="submit">Log in</button>
         </form>
-        <div>Not registered? <Link to="/adminSignup">Sign up</Link></div>
+
         {/* {errorMessage && <p className="error">{errorMessage}</p>} */}
       </div>
     </div>

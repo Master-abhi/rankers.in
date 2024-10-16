@@ -25,11 +25,13 @@ import AdminLogin from "./Components/Admin/AdminLogin";
 import UpdateEditAdmin from "./Components/Admin/UpdatesEditAdmin";
 import JobEditAdmin from "./Components/Admin/JobEditAdmin";
 
+
 function Layout() {
   return (
     <>
       <Navbar />
       <Footbar />
+      
     </>
   );
 }
