@@ -27,6 +27,11 @@
 }
 
 .selectedLink {
-    border-bottom: 2px solid rgb(255, 255, 255); /* You can adjust this style */
+    border-bottom: 2px solid #F6D941; /* You can adjust this style */
     font-weight: 600;
+    background-color: #F6D941;
+    color: #38874C;
+}
+.selectedLink:hover{
+    color: #38874C;
 }

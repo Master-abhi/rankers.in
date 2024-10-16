@@ -52,7 +52,7 @@ const Home = () => {
       {/*-------------------------------------------------- Highlighted jobs-------------------------------------------------- */}
       <div className="flex items-center justify-center flex-col">
         <div className="h-full w-full md:w-3/5 m-10 rounded-md flex flex-col items-center bg-[#38874C]">
-        <img className="h-full w-auto" src="https://firebasestorage.googleapis.com/v0/b/rankers-c47cb.appspot.com/o/rankers%20banner.png?alt=media&token=8ad787a1-480f-4f0d-bbe8-833704b965c3"/>
+        <img className="h-full w-auto" src="https://firebasestorage.googleapis.com/v0/b/rankers-c47cb.appspot.com/o/rankers%20banner.png?alt=media&token=8eb66999-97fe-4286-90e7-fac38a0c294a"/>
  
 
         </div>

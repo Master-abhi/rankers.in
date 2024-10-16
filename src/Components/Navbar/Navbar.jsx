@@ -59,7 +59,7 @@ const Navbar = () => {
                     <ul className="md:flex hidden">
                         <Link to="/">
                             <li
-                                className={`mx-8 hover:text-[] font-400 hover:border-b ${
+                                className={`mx-6 w-16 h-8 flex items-center justify-center text-center rounded-md hover:text-[#F6D941] font-400 hover:font-bold  ${
                                     selectedPage === "home" ? styles.selectedLink : ""
                                 }`}
                                 onClick={() => setSelectedPage("home")}
@@ -69,7 +69,7 @@ const Navbar = () => {
                         </Link>
                         <Link to="/news">
                             <li
-                                className={`mx-8 hover:text-[] font-400 hover:border-b ${
+                                className={`mx-6 w-16 h-8 flex items-center justify-center text-center rounded-md hover:text-[#F6D941] font-400 hover:font-bold  ${
                                     selectedPage === "updates" ? styles.selectedLink : ""
                                 }`}
                                 onClick={() => setSelectedPage("updates")}
@@ -79,7 +79,7 @@ const Navbar = () => {
                         </Link>
                         <Link to="/jobs">
                             <li
-                                className={`mx-8 hover:text-[] font-400 hover:border-b ${
+                                className={`mx-6 w-16 h-8 flex items-center justify-center text-center rounded-md hover:text-[#F6D941] font-400 hover:font-bold  ${
                                     selectedPage === "exams" ? styles.selectedLink : ""
                                 }`}
                                 onClick={() => setSelectedPage("exams")}
@@ -99,7 +99,7 @@ const Navbar = () => {
                         </Link> */}
                         <Link to="/tests">
                             <li
-                                className={`mx-8 hover:text-[] font-400 hover:border-b ${
+                                className={`mx-6 w-16 h-8 flex items-center justify-center text-center rounded-md hover:text-[#F6D941] font-400 hover:font-bold  ${
                                     selectedPage === "tests" ? styles.selectedLink : ""
                                 }`}
                                 onClick={() => setSelectedPage("tests")}
@@ -109,7 +109,7 @@ const Navbar = () => {
                         </Link>
                     </ul>
                 </div>
-                <div className="mx-8">
+                <div className="mx-4">
                     {/* <div className="bg-white rounded-full h-10 w-10 text-black flex items-center justify-center">
                         <p>ID</p>
                     </div> */}
