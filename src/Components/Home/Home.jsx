@@ -109,7 +109,6 @@ const Home = () => {
             </Link>
           </div>}
         </div>
-        <Footer/>
         <div className="h-[50px]"></div>
       </div>
     </>
