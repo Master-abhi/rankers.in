@@ -1,5 +1,15 @@
 {
   "projects": {
     "default": "rankers-c47cb"
-  }
+  },
+  "targets": {
+    "rankers-c47cb": {
+      "hosting": {
+        "rankers": [
+          "rankers"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
