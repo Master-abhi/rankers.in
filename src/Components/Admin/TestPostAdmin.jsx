@@ -11,6 +11,7 @@ const TestPostAdmin = () => {
   const postDateRef = useRef();
   const timerRef = useRef();
   const [isLoggedin, setLoggedin] = useState(false);
+  
 
   const fetchuser = async ()=>{
       auth.onAuthStateChanged(async(user)=>{
@@ -36,50 +37,63 @@ useEffect(()=>{
 
   // Function to convert the text input into an array of questions
   const convertTextToQuestions = (input) => {
+    // Split input into lines, remove any empty lines
     const lines = input.split("\n").map(line => line.trim()).filter(line => line.length > 0);
     const questionsArray = [];
     let currentQuestion = {};
   
     for (let i = 0; i < lines.length; i++) {
+      // Check for question number
       if (lines[i].startsWith("No.")) {
         if (currentQuestion.numb) {
-          questionsArray.push(currentQuestion);
-          currentQuestion = {};
+          questionsArray.push(currentQuestion);  // Push previous question to array
+          currentQuestion = {};  // Reset current question
         }
+        // Extract the question number
         currentQuestion.numb = parseInt(lines[i].replace("No. ", "").trim(), 10);
+  
       } else if (lines[i].startsWith("Question (EN):")) {
         currentQuestion.question = currentQuestion.question || {}; // Initialize if not already initialized
-        currentQuestion.question.en = lines[i].split(": ")[1];
+        currentQuestion.question.en = lines[i].split(":")[1].trim();
+  
       } else if (lines[i].startsWith("Question (HI):")) {
         currentQuestion.question = currentQuestion.question || {}; // Initialize if not already initialized
-        currentQuestion.question.hi = lines[i].split(": ")[1];
+        currentQuestion.question.hi = lines[i].split(":")[1].trim();
+  
       } else if (lines[i].startsWith("Qlist (EN):")) {
         currentQuestion.qList = currentQuestion.qList || {}; // Initialize if not already initialized
-        currentQuestion.qList.en = lines[i].split(": ")[1].split(", ");
+        currentQuestion.qList.en = lines[i].split(":")[1].trim().split(", ");
+  
       } else if (lines[i].startsWith("Qlist (HI):")) {
         currentQuestion.qList = currentQuestion.qList || {}; // Initialize if not already initialized
-        currentQuestion.qList.hi = lines[i].split(": ")[1].split(", ");
+        currentQuestion.qList.hi = lines[i].split(":")[1].trim().split(", ");
+  
       } else if (lines[i].startsWith("Answer (EN):")) {
         currentQuestion.answer = currentQuestion.answer || {}; // Initialize if not already initialized
-        currentQuestion.answer.en = lines[i].split(": ")[1];
+        currentQuestion.answer.en = lines[i].split(":")[1].trim();
+  
       } else if (lines[i].startsWith("Answer (HI):")) {
         currentQuestion.answer = currentQuestion.answer || {}; // Initialize if not already initialized
-        currentQuestion.answer.hi = lines[i].split(": ")[1];
+        currentQuestion.answer.hi = lines[i].split(":")[1].trim();
+  
       } else if (lines[i].startsWith("Options (EN):")) {
         currentQuestion.options = currentQuestion.options || {}; // Initialize if not already initialized
-        currentQuestion.options.en = lines[i].split(": ")[1].split(", ");
+        currentQuestion.options.en = lines[i].split(":")[1].trim().split(", ");
+  
       } else if (lines[i].startsWith("Options (HI):")) {
         currentQuestion.options = currentQuestion.options || {}; // Initialize if not already initialized
-        currentQuestion.options.hi = lines[i].split(": ")[1].split(", ");
+        currentQuestion.options.hi = lines[i].split(":")[1].trim().split(", ");
       }
     }
   
+    // Push the last question into the array if it exists
     if (currentQuestion.numb) {
       questionsArray.push(currentQuestion);
     }
   
     return questionsArray;
   };
+  
   
   
   
