@@ -233,18 +233,19 @@ const TestStart = () => {
                     Submit Test
                   </div>
                 </div>
+                <div className="h-[50px]"></div>
               </div>
             </div>
           </div>
         ) : (
-          <div className="w-[100vw] h-[100vh] flex items-center flex-col border ">
+          <div className="w-[100vw] h-[100vh] flex items-center flex-col ">
             <div className="w-[300px] h-[230px] m-10 flex items-center flex-col rounded-2xl bg-[#eff7f1]">
               <div className="w-full flex items-center flex-col py-4">
                 <h1 className="text-[#38874C] font-bold">Test Completed!</h1>
                 <p className="my-5"><span className="text-red-700 font-semibold">Your final score is:</span> {score}/{test.questions.length}</p>
                 <p><span className="text-red-700 font-semibold">Total time taken:</span> {formatTime(timeTaken)}</p>
               </div>
-              <div className="w-full flex justify-center items-center my-5 border-gray-50">
+              <div className="w-full flex justify-center items-center my-5 ">
                 <div className={`${styles.queBtns} mx-5`}>
                   <Link to={`/tests`}>Retake Test</Link>
                 </div>
@@ -255,8 +256,8 @@ const TestStart = () => {
               </div>
               
             </div>
-            <div className="w-[60%] h-full">
-              <div className="W-full h-[50px] flex justify-center items-center bg-[#38874C] text-white font-bold rounded-lg my-5">QUESTIONS WITH YOUR SELECTED OPTION</div>
+            <div className="w-full md:w-[60%] h-full">
+              <div className="W-full p-1 h-[50px] flex justify-center items-center bg-[#38874C] text-white font-bold rounded-lg my-5">QUESTIONS WITH YOUR SELECTED OPTION</div>
               {test.questions.map((question, index) => (
                 <div key={index} className={styles.questionContainer}>
                   {/* Displaying the question number and text */}
@@ -293,6 +294,7 @@ const TestStart = () => {
                   </div>
                 </div>
               ))}
+              <div className="h-[50px]"></div>
             </div>
 
 
