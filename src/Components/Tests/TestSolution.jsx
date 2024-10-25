@@ -142,6 +142,15 @@ const TestStart = () => {
               <div className={styles.mainQue}>
                 <h1>{test.questions[count].numb}. {test.questions[count].question[language]}</h1>
               </div>
+              {test.questions[count].qList && (
+                    <div className={styles.qList}>
+                      {test.questions[count].qList[language].map((q, idx) => (
+                        <div key={idx}>
+                          <span>{q}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
               <div className={styles.queOptions}>
                 {test.questions[count].options[language].map((option, index) => (
                   <div
@@ -246,7 +255,7 @@ const TestStart = () => {
         </div>
       ) : (
         <div className="w-[100vw] h-[100vh] flex items-center flex-col border border-black">
-        <div className="w-[300px] h-[230px] m-10  flex items-center flex-col rounded-2xl bg-[#eff7f1]">
+        <div className="w-w-full md:w-[60%] m-10  flex items-center flex-col rounded-2xl bg-[#eff7f1]">
           <div className={`w-full flex items-center flex-col py-4`}>
             <h1 className="text-[#38874C] font-bold">Test Completed !</h1>
             <p className="my-5"><span className="text-red-700 font-semibold">Your final score is:</span> {score}/{test.questions.length}</p>

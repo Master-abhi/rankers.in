@@ -52,7 +52,8 @@ const Navbar = () => {
             <div className={styles.main}>
                 <div className={styles.logo}>
                 <Link to="/">
-                <img className="h-[60px] w-[170px] m-0" src="https://firebasestorage.googleapis.com/v0/b/rankers-c47cb.appspot.com/o/RANKERS.png?alt=media&token=954fca01-4fe2-4b03-9b21-7cdb6fe3fa92"/>
+                {/* <img className="h-[30px] w-auto m-0" /> */}
+                SARKARI WORLD
                 </Link>
                 </div>
                 <div className={styles.links}>

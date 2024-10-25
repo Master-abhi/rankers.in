@@ -28,7 +28,7 @@ const JobShow = () => {
 
 
   function copyLink() {
-    const url = `https://rankers-beta.vercel.app/jobs/${jobId}`;
+    const url = `https://sarkariworld.in/jobs/${jobId}`;
 
     // Check if navigator.clipboard is available
     if (navigator.clipboard) {
@@ -99,18 +99,18 @@ function fallbackCopyTextToClipboard(text) {
                     <img src="https://cdn-icons-png.flaticon.com/128/10550/10550076.png" className='h-full w-full'/>
                   </button> */}
                 </div>
-                {job.postDate?<div className="flex items-center justify-center my-1 w-full">
-                  <p>Post Date : {job.postDate}</p>
+                {job.postDate?<div className="flex items-center justify-center h-10 w-full">
+                  <h2 className='m-0'>Post Date : {job.postDate}</h2>
                 </div>:""}
                 {job.totalVacancy?<div className="flex items-center justify-center my-1 w-full">
-                  <p>Total Vacancy : {job.totalVacancy} </p>
-                </div>: ""}
+                  <h2>Total Vacancy : {job.totalVacancy} </h2>
+                </div>: ""} 
 
               </div>
             </div>
                       {/* Share Button */}
                       <div className='flex justify-center items-center w-full my-4'>
-                      <a href={`https://api.whatsapp.com/send?text=Check out this Job post: rankers-beta.vercel.app/jobs/${jobId}`} target="_blank">
+                      <a href={`https://api.whatsapp.com/send?text=Check out this Job post: sarkariworld.in/jobs/${jobId}`} target="_blank">
                           <img src="https://cdn-icons-png.flaticon.com/128/15707/15707820.png" alt="WhatsApp" className='h-[40px] w-[40px] mx-2'/>
                       </a>
                       <a href={`https://www.facebook.com/sharer/sharer.php?u=https://rankers-beta.vercel.app/jobs/${jobId}`} target="_blank">
@@ -124,7 +124,7 @@ function fallbackCopyTextToClipboard(text) {
                 Vacancy Details
               </div>
               {job.recruitmentBy?<div className="flex items-center justify-center my-2 w-[90%] md:w-[70%]">
-                  <p className='w-full text-justify'><span className="text-red-700 font-semibold items-stretch">संक्षिप्त जानकारी: </span> {job.recruitmentBy} </p>
+                  <h2 className='w-full text-justify'><span className="text-red-700 font-semibold items-stretch">संक्षिप्त जानकारी: </span> {job.recruitmentBy} </h2>
                 </div>:""}
                 {job.impDate? <div className="flex flex-col justify-center text-justify my-2 w-[90%] md:w-[70%]">
                 <span className="text-red-700 font-semibold items-stretch">महत्वपूर्ण तिथियाँ: </span><div dangerouslySetInnerHTML={{ __html: job.impDate }} />
