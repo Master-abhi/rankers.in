@@ -25,7 +25,7 @@ const NewsCard = (props)=>{
                     </div>
 
                 </div>
-                <div className="w-full flex text-justify font-bold my-2 ">
+                <div className="w-full flex text-justify  my-2 ">
                     <a href={props.news.url} target="blank">
                 {props.news.title}
                 </a>

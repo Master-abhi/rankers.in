@@ -247,10 +247,10 @@ const TestStart = () => {
               </div>
               <div className="w-full flex justify-center items-center my-5 ">
                 <div className={`${styles.queBtns} mx-5`}>
-                  <Link to={`/tests`}>Retake Test</Link>
+                  <Link to={`/sarkari-tests`}>Retake Test</Link>
                 </div>
                 <div className={`${styles.queBtns} mx-5`}>
-                  <Link to={`/tests/solution/${testId}`}>Solution</Link>
+                  <Link to={`/sarkari-tests/solution/${testId}`}>Solution</Link>
                 </div>
 
               </div>

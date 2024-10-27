@@ -11,13 +11,13 @@ const Navbar = () => {
         const path = location.pathname;
         if (path === "/") {
             setSelectedPage("home");
-        } else if (path === "/news") {
+        } else if (path === "/sarkari-news") {
             setSelectedPage("updates");
-        } else if (path === "/jobs") {
+        } else if (path === "/sarkari-jobs-notification") {
             setSelectedPage("exams");
-        } else if (path === "/study") {
+        } else if (path === "/sarkari-study") {
             setSelectedPage("study");
-        } else if (path === "/tests") {
+        } else if (path === "/sarkari-tests") {
             setSelectedPage("tests");
         }
     }, [location.pathname]); // Trigger effect when location changes
@@ -36,7 +36,7 @@ const Navbar = () => {
                                 <img src={selectedPage === "home" ? "https://cdn-icons-png.flaticon.com/128/1946/1946436.png" : "https://cdn-icons-png.flaticon.com/128/1946/1946488.png" }/>
                             </li>
                         </Link>
-                        <Link to="/news">
+                        <Link to="/sarkari-news">
                             <li
                                 className={`${styles.linkLi}`}
                                 onClick={() => setSelectedPage("updates")}
@@ -46,7 +46,7 @@ const Navbar = () => {
                                 }/>
                             </li>
                         </Link>
-                        <Link to="/jobs">
+                        <Link to="/sarkari-jobs-notification">
                             <li
                                 className={`${styles.linkLi} `}
                                 onClick={() => setSelectedPage("exams")}
@@ -55,7 +55,7 @@ const Navbar = () => {
                                 }/>
                             </li>
                         </Link>
-                        {/* <Link to="/study">
+                        {/* <Link to="/sarkari-study">
                             <li
                                 className={`${styles.linkLi} `}
                                 onClick={() => setSelectedPage("study")}
@@ -65,7 +65,7 @@ const Navbar = () => {
                                 } />
                             </li>
                         </Link> */}
-                        <Link to="/tests">
+                        <Link to="/sarkari-tests">
                             <li
                                 className={`${styles.linkLi}`}
                                 onClick={() => setSelectedPage("tests")}

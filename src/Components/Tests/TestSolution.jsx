@@ -262,7 +262,7 @@ const TestStart = () => {
           </div>
           <div className=" w-full flex justify-center items-center my-5 border-gray-50 ">
           <div className={`${styles.queBtns} mx-5`}>
-              <Link to={`/tests`}>Test page</Link>
+              <Link to={`/sarkari-tests`}>Test page</Link>
             </div>
           </div>
           </div>

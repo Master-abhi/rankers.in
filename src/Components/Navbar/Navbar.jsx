@@ -68,7 +68,7 @@ const Navbar = () => {
                                 Home
                             </li>
                         </Link>
-                        <Link to="/news">
+                        <Link to="/sarkari-news">
                             <li
                                 className={`mx-6 w-16 h-8 flex items-center justify-center text-center rounded-md hover:text-[#F6D941] font-400 hover:font-bold  ${
                                     selectedPage === "updates" ? styles.selectedLink : ""
@@ -78,7 +78,7 @@ const Navbar = () => {
                                 News
                             </li>
                         </Link>
-                        <Link to="/jobs">
+                        <Link to="/sarkari-jobs-notification">
                             <li
                                 className={`mx-6 w-16 h-8 flex items-center justify-center text-center rounded-md hover:text-[#F6D941] font-400 hover:font-bold  ${
                                     selectedPage === "exams" ? styles.selectedLink : ""
@@ -88,7 +88,7 @@ const Navbar = () => {
                                 Jobs
                             </li>
                         </Link>
-                        {/* <Link to="/study">
+                        {/* <Link to="/sarkari-study">
                             <li
                                 className={`mx-8 hover:text-black ffont-400 hover:border-b ${
                                     selectedPage === "study" ? styles.selectedLink : ""
@@ -98,7 +98,7 @@ const Navbar = () => {
                                 Study
                             </li>
                         </Link> */}
-                        <Link to="/tests">
+                        <Link to="/sarkari-tests">
                             <li
                                 className={`mx-6 w-16 h-8 flex items-center justify-center text-center rounded-md hover:text-[#F6D941] font-400 hover:font-bold  ${
                                     selectedPage === "tests" ? styles.selectedLink : ""

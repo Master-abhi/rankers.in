@@ -110,10 +110,10 @@ function fallbackCopyTextToClipboard(text) {
             </div>
                       {/* Share Button */}
                       <div className='flex justify-center items-center w-full my-4'>
-                      <a href={`https://api.whatsapp.com/send?text=Check out this Job post: sarkariworld.in/jobs/${jobId}`} target="_blank">
+                      <a href={`https://api.whatsapp.com/send?text=Check out this Job post: sarkariworld.in/sarkari-jobs-notification/${jobId}`} target="_blank">
                           <img src="https://cdn-icons-png.flaticon.com/128/15707/15707820.png" alt="WhatsApp" className='h-[40px] w-[40px] mx-2'/>
                       </a>
-                      <a href={`https://www.facebook.com/sharer/sharer.php?u=https://rankers-beta.vercel.app/jobs/${jobId}`} target="_blank">
+                      <a href={`https://www.facebook.com/sharer/sharer.php?u=https://sarkariworld.in/sarkari-jobs-notification/${jobId}`} target="_blank">
                           <img src="https://cdn-icons-png.flaticon.com/128/5968/5968764.png" alt="Facebook" className='h-[40px] w-[40px] mx-2'/>
                       </a>
                       <div onClick={()=>copyLink()}><img src="https://cdn-icons-png.flaticon.com/128/7073/7073707.png" alt="copy link" className='h-[40px] w-[40px] mx-2'/></div>
