@@ -1,8 +1,13 @@
 import styles from "../../Styles/Testpage.module.css";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { onSnapshot, doc} from "firebase/firestore";
+import { db } from "../../firebaseinit";
 
 const TestStart = () => {
+  const {testId} = useParams(); 
+  const [test, setTest] = useState(null);
+  // const [questions, setQuestions] = useState([])
   const [count, setCount] = useState(0);  // Track current question index
   const [score, setScore] = useState(0);  // Track score
   const [isTestCompleted, setIsTestCompleted] = useState(false);  // Track if test is completed
@@ -11,89 +16,39 @@ const TestStart = () => {
   const [selectedOptions, setSelectedOptions] = useState({});  // Track selected option for each question
   const [language, setLanguage] = useState('hi');  // Track the current language (Hindi by default)
   const [questionStatus, setQuestionStatus] = useState({});  // Track whether a question is answered or skipped
-  const [answered, setAnswered] = useState({})
+  const [answered, setAnswered] = useState({});
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    console.log("Current Test ID:", testId);
+    
+    if (testId) {
+      const testDocRef = doc(db, "tests", testId);
+
+      const unsubscribe = onSnapshot(testDocRef, (docSnapshot) => {
+        if (docSnapshot.exists()) {
+          setTest({ id: docSnapshot.id, ...docSnapshot.data() });
+          console.log(test)
+        } else {
+          console.log("No such document!");
+        }
+        
+        setLoading(false); // Set loading to false when data is fetched
+      });
+
+      return () => {
+        unsubscribe();
+      };
+    }
+    
+    console.log("Test ID or Test data not available");
+  }, [testId]);
 
   // Total time allowed for the test (300 seconds = 5 minutes)
   const totalTime = 300;
 
   // Questions array (with English and Hindi versions)
-  const questions = [
-    {
-      numb: 1,
-      question: {
-        en: "In what year did the Great October Socialist Revolution take place?",
-        hi: "महान अक्टूबर समाजवादी क्रांति किस वर्ष हुई थी?"
-      },
-      answer: {
-        en: "A. 1917",
-        hi: "A. 1917"
-      },
-      options: {
-        en: ["A. 1917", "B. 1923", "C. 1914", "D. 1920"],
-        hi: ["A. 1917", "B. 1923", "C. 1914", "D. 1920"]
-      }
-    },
-    {
-      numb: 2,
-      question: {
-        en: "What is the largest lake in the world?",
-        hi: "दुनिया की सबसे बड़ी झील कौन सी है?"
-      },
-      answer: {
-        en: "B. Baikal",
-        hi: "B. बैकाल"
-      },
-      options: {
-        en: ["A. Caspian Sea", "B. Baikal", "C. Lake Superior", "D. Ontario"],
-        hi: ["A. कैस्पियन सागर", "B. बैकाल", "C. सुपीरियर झील", "D. ओंटारियो"]
-      }
-    },
-    {
-      numb: 3,
-      question: {
-        en: "Which planet in the solar system is known as the 'Red Planet'?",
-        hi: "सौरमंडल में किस ग्रह को 'लाल ग्रह' कहा जाता है?"
-      },
-      answer: {
-        en: "C. Mars",
-        hi: "C. मंगल"
-      },
-      options: {
-        en: ["A. Venus", "B. Earth", "C. Mars", "D. Jupiter"],
-        hi: ["A. शुक्र", "B. पृथ्वी", "C. मंगल", "D. बृहस्पति"]
-      }
-    },
-    {
-      numb: 4,
-      question: {
-        en: "Who wrote the novel 'War and Peace'?",
-        hi: "उपन्यास 'युद्ध और शांति' किसने लिखा?"
-      },
-      answer: {
-        en: "C. Leo Tolstoy",
-        hi: "C. लियो टॉल्स्टॉय"
-      },
-      options: {
-        en: ["A. Anton Chekhov", "B. Fyodor Dostoevsky", "C. Leo Tolstoy", "D. Ivan Turgenev"],
-        hi: ["A. आंतोन चेखव", "B. फ़्योदोर दोस्तोयेव्स्की", "C. लियो टॉल्स्टॉय", "D. इवान तुर्गनेव"]
-      }
-    },
-    {
-      numb: 5,
-      question: {
-        en: "What is the capital of Japan?",
-        hi: "जापान की राजधानी क्या है?"
-      },
-      answer: {
-        en: "B. Tokyo",
-        hi: "B. टोक्यो"
-      },
-      options: {
-        en: ["A. Beijing", "B. Tokyo", "C. Seoul", "D. Bangkok"],
-        hi: ["A. बीजिंग", "B. टोक्यो", "C. सियोल", "D. बैंकॉक"]
-      }
-    }
-  ];
+
 
   // Handle answer selection and allow re-selection of options
   const handleOptionClick = (selectedOption) => {
@@ -108,7 +63,7 @@ const TestStart = () => {
   const checkAndUpdateScore = () => {
     const selectedOption = selectedOptions[count];
     // Check if the selected option matches the correct answer
-    if (selectedOptions[count] === questions[count].answer[language]) {
+    if (selectedOptions[count] === test.questions[count].answer[language]) {
       // If the question hasn't already been marked as answered, update the score
       if (!questionStatus[count]) {
         setScore((prevScore) => prevScore + 1);
@@ -117,7 +72,7 @@ const TestStart = () => {
       }
 
     }
-    console.log(selectedOptions[count], questions[count].answer[language], questionStatus[count], score)
+    console.log(selectedOptions[count], test.questions[count].answer[language], questionStatus[count], score)
     console.log()
   };
   
@@ -126,7 +81,7 @@ const TestStart = () => {
     checkAndUpdateScore();
   
     // Move to the next question
-    if (count < questions.length - 1) {
+    if (count < test.questions.length - 1) {
       setCount((prevCount) => prevCount + 1);
     }
   };
@@ -173,7 +128,10 @@ const TestStart = () => {
 
   return (
     <>
-      {!isTestCompleted ? (
+    {loading ? (
+      <div>Loading...</div>  // Show a loading message while the data is being fetched
+    ) : (
+      !isTestCompleted ? (
         <div>
           <div className={`flex-col lg:flex-row ${styles.mainContainer} `}>
             <div className={`${styles.queContainer}`}>
@@ -183,10 +141,10 @@ const TestStart = () => {
                 </button>
               </div>
               <div className={styles.mainQue}>
-                <p>{questions[count].numb}. {questions[count].question[language]}</p>
+                <p>{test.questions[count].numb}. {test.questions[count].question[language]}</p>
               </div>
               <div className={styles.queOptions}>
-                {questions[count].options[language].map((option, index) => (
+                {test.questions[count].options[language].map((option, index) => (
                   <div
                     key={index}
                     className={`${styles.optionBtn} ${selectedOptions[count] === option ? styles.selected : ""}`}
@@ -211,10 +169,11 @@ const TestStart = () => {
                 <div></div>
                 }
                 {
-                  (count < questions.length - 1) ? 
+                  (count < test.questions.length - 1) ? 
                   <div className={styles.queBtns} onClick={nextQuestion}>
                   Next
                 </div>
+                
                 :
                 ""
                 }
@@ -227,7 +186,7 @@ const TestStart = () => {
                 </div>
               </div>
               <div className={styles.queNoContainer}>
-                {questions.map((_, index) => (
+                {test.questions.map((_, index) => (
                   <div
                     key={index}
                     className={styles.queNos}
@@ -252,6 +211,8 @@ const TestStart = () => {
                   >
                     {index + 1}
                   </div>
+                  
+                
                 ))}
               </div>
               <div className={styles.exitNsubmit}>
@@ -262,25 +223,28 @@ const TestStart = () => {
             </div>
           </div>
         </div>
-      ) : (
+        ) : (
         <div className="w-full flex justify-center items-center flex-col">
           <div className={`w-full flex items-center flex-col py-4`}>
             <h1>Test Completed!</h1>
-            <p>Your final score is: {score}/{questions.length}</p>
+            <p>Your final score is: {score}/{test.questions.length}</p>
             <p>Total time taken: {formatTime(timeTaken)}</p>
           </div>
           <div className=" w-full flex justify-center items-center  border-gray-50 ">
           <div className={`${styles.queBtns} mx-5`}>
-              <Link to="/tests">Retake Test</Link>
+              <Link to={`/tests`}>Retake Test</Link>
             </div>
             <div className={`${styles.queBtns} mx-5`}>
-              <Link to="/tests/new-test/solution">Solution</Link>
+              <Link to={`/tests/solution/${testId}`}>Solution</Link>
             </div>
           </div>
 
         </div>
-      )}
-    </>
+        )
+      
+        )}
+      
+      </>
   );
 };
 

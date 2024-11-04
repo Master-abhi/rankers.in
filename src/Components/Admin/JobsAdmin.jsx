@@ -1,8 +1,8 @@
-import {collection, addDoc, setDoc, deleteDoc, onSnapshot} from "firebase/firestore";
-import {db} from "../../../firebaseinit";
+import {collection, doc, setDoc, deleteDoc, onSnapshot} from "firebase/firestore";
+import {db} from "../../firebaseinit";
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import styles from "../../../Styles/Home.module.css"
+import styles from "../../Styles/Home.module.css"
 
 const JobsAdmin = ()=>{
     const [highlightedJobs, setHightlightedJobs] = useState([]);
@@ -34,9 +34,9 @@ const JobsAdmin = ()=>{
         <>
 
         <div className="h-full main w-full flex items-center justify-center">
-        <div className="h-full main w-[60%] flex flex-col items-center justify-center my-10">
-        <div className={styles.adminExam} >
-                    <Link to={`jobs-post-admin`} className="w-full"> 
+        <div className="h-full main w-full md:w-[60%] flex flex-col items-center justify-center my-10">
+        <div className={`mx-10 ${styles.adminExam}`} >
+                    <Link to={`jobs-post-admin`} className="w-[90%]"> 
                     <div className=" text-center">Add New Job Post</div>
                     </Link>
                     </div>
@@ -56,7 +56,7 @@ const JobsAdmin = ()=>{
                                 <Link to={`/jobs/${data.id}`} className="w-full"> 
                                 <div className=" text-center">{data.JobsName}</div>
                                 </Link>
-                                <div className="mx-2 h-[30px] w-[70px] text-center rounded-md p-[2px] bg-red-600 text-white cursor-pointer" onClick={deleteBtn(data.id)}>Delete</div>
+                                <div className="mx-2 h-[30px] w-[70px] text-center rounded-md p-[2px] bg-red-600 text-white cursor-pointer" onClick={()=>deleteBtn(data.id)}>Delete</div>
                                 </div>
                                 
                             

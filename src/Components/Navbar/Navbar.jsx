@@ -28,7 +28,7 @@ const Navbar = () => {
             <div className={styles.main}>
                 <div className={styles.logo}>
                 <Link to="/">
-                     Rankers.in
+                     <img className="h-[70px] w-[190px] rounded-md" src="src\assets\logow.png"/> 
                 </Link>
                 </div>
                 <div className={styles.links}>

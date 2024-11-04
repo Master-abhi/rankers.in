@@ -1,13 +1,11 @@
-import {collection, addDoc, setDoc, onSnapshot} from "firebase/firestore";
-import {db} from "../../../firebaseinit";
+import {collection, addDoc, setDoc, onSnapshot, Timestamp} from "firebase/firestore";
+import {db} from "../../firebaseinit";
 import { useState, useRef, useEffect } from "react";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import * as XLSX from "xlsx";
 
 const JobPostAdmin = ()=>{
-    const [data1, setData1] = useState([]);
-    const [data2, setData2] = useState([]);
-    const [link, setLink] = useState([]);
+    const [isNew, setIsNew] = useState();
+
  
     const nameRef = useRef();
     const newMarkRef = useRef();
@@ -167,6 +165,7 @@ const JobPostAdmin = ()=>{
         setTablePreview1(tableHtml);
       };
       reader.readAsArrayBuffer(file);
+      console.log(Date.now())
     };
 
      const [htmlCode2, setHtmlCode2] = useState("");
@@ -274,13 +273,20 @@ const JobPostAdmin = ()=>{
       reader.readAsArrayBuffer(file);
     };
 
+    const handleRadio = (event) =>{
+      let value = true;
+      if (typeof event.currentTarget.value === 'string') {
+          (event.currentTarget.value === 'true' ? value = true : value = false );
+      }
+      setIsNew(value);
+      }
 
     const addJob = async (e)=>{
         
         console.log(e)
         const docRef = await addDoc(collection(db, "highlightedJobs"),{
             JobsName:e.n,
-            newMark: e.nm,
+            newMark: isNew,
             postDate:e.p,
             totalVacancy:e.tv,
             recruitmentBy:e.r,
@@ -297,7 +303,7 @@ const JobPostAdmin = ()=>{
             // notification:e.n,
             // officialWebsite:e.o,
             tags:e.t,
-            
+            timeStamp: Date.now()
         });
     //    clearInput();
     }
@@ -306,14 +312,11 @@ const JobPostAdmin = ()=>{
 
     return (
         <>
-            <div className="bg-slate-50 md:flex  h-full">
-            <div className="max-h-full w-full md:w-3/12 bg-[#F6F6F2]">
-                {/* adLeft */}
-            </div>
+            <div className="bg-slate-50 flex flex-col md:flex items-center justify-center w-full h-full">
             <div className="max-h-full w-full bg-[#F6F6F2] flex flex-col md:flex items-center justify-center ">
 
                 {/*-------------------------------------------------- Highlighted jobs-------------------------------------------------- */}
-                <div className="h-full w-full ">
+                <div className="h-full w-full md:w-[60%] ">
                     <div className="bg-[#b6e0c1] h-10 w-full texts-center text-2xl text-red-700 font-bold flex justify-center items-center">
                        <img className="h-[30px]" src="https://cdn-icons-png.flaticon.com/128/728/728139.png" />
                         Add a Job details for post
@@ -328,7 +331,12 @@ const JobPostAdmin = ()=>{
                             </div>
                             <div className="flex items-center m-4 w-full">
                                 <p className="mx-4">new mark (true/false) : </p>
-                                <input type="text" ref={newMarkRef} className="border border-black w-[80%]" />
+                                <div className="radio">
+                                <label><input type="radio" name="isNew" value="true" onClick={handleRadio}/>Yes</label>
+                                  </div>
+                                  <div className="radio">
+                                      <label><input type="radio" name="isNew" value="false"  onClick={handleRadio}/>No</label>
+                                  </div>
                             </div>
                             <div className="flex items-center m-4 w-full">
                                 <p className="mx-4">Post Date :</p>
@@ -341,7 +349,7 @@ const JobPostAdmin = ()=>{
 
                             <div className="flex items-center m-4 w-full">
                                 <p className="mx-4">Recruitment by :</p>
-                                <input type="text" ref={recruitmentByRef} className="border border-black w-[80%]" />
+                                <textarea type="text" ref={recruitmentByRef} className="border border-black w-[80%] h-[100px]" />
                             </div>
 
                         </form> 
@@ -358,7 +366,7 @@ const JobPostAdmin = ()=>{
                         <form className=" flex flex-col w-[90%]">
 
                         <div className="flex justify-center items-center m-4 w-[90%]">
-                                <textarea type="text" ref={ageRef} className="border border-black w-[80%]" />
+                                <textarea type="text" ref={ageRef} className="border border-black w-[80%] h-[200px]" />
                             </div>
 
                         </form>
@@ -375,7 +383,7 @@ const JobPostAdmin = ()=>{
                         <form className=" flex flex-col  w-[90%]">
 
                             <div className="flex justify-center  items-center m-4 w-[90%]">
-                                <textarea type="text" ref={qualificationDetailRef} className="border border-black w-[80%]" />
+                                <textarea type="text" ref={qualificationDetailRef} className="border border-black w-[80%] h-[200px]" />
                             </div>
 
                         </form>
@@ -393,7 +401,7 @@ const JobPostAdmin = ()=>{
 
                             <div className="flex  items-center m-4 w-[90%]">
                                 <p className="mx-4">Add details : </p>
-                                <textarea type="text" ref={feeRef} className="border border-black w-[80%]" />
+                                <textarea type="text" ref={feeRef} className="border border-black w-[80%] h-[200px]" />
                             </div>
 
                         </form>
@@ -411,7 +419,7 @@ const JobPostAdmin = ()=>{
 
                             <div className="flex  items-center m-4 w-[90%]">
                                 <p className="mx-4">Add details : </p>
-                                <textarea type="text" ref={impDateRef} className="border border-black w-[80%]" />
+                                <textarea type="text" ref={impDateRef} className="border border-black w-[80%] h-[200px]" />
                             </div>
 
                         </form>
@@ -578,7 +586,6 @@ const JobPostAdmin = ()=>{
 
                 <div className="flex  items-center m-4 w-full">      
                     <input type="submit" onClick={()=>addJob({n:nameRef.current.value,
-                      nm: newMarkRef.current.value,
                      tv: totalVacancyRef.current.value,
                      p:postDateRef.current.value, 
                      r:recruitmentByRef.current.value, 
@@ -589,10 +596,11 @@ const JobPostAdmin = ()=>{
                 })} className="border border-black w-1/5" />
                 </div>
               </div>
-            <div className='max-h-full w-full md:w-3/12 bg-[#F6F6F2]'>
-                {/* adRight */}
-            </div>
+
         </div>  
+        <div className="h-[50px]">
+
+        </div>
         </>
     )
 };

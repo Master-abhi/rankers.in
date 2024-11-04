@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import {db} from "../../../firebaseinit"
+import {db} from "../../firebaseinit"
 import { collection, onSnapshot } from "firebase/firestore";
 // import styles from "../../Styles/Home.module.css"
 
@@ -36,13 +36,16 @@ const Admin = () => {
                 <span>Exams</span>
             </div>
         </Link>
-
+        <Link to='tests-admin'>
             <div className="flex justify-center items-center h-20 w-[200px] rounded-xl border border-black m-10">
                 <span>Tests</span>
             </div>
+            </Link>
+            <Link to='updates-admin'>
             <div className="flex justify-center items-center h-20 w-[200px] rounded-xl border border-black m-10">
                 <span>Updates</span>
             </div>
+            </Link>
 
         </div>
 

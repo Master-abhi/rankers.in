@@ -93,11 +93,11 @@ const JobShow = () => {
                 <div className="flex flex-col justify-center text-justify my-2 w-[90%] md:w-[70%] table-auto">
                 <span className="text-red-700 font-semibold text-justify items-stretch">विवरण:</span>
                 <div >
-                <div className='w-full'  dangerouslySetInnerHTML={{ __html: job.vacancyDetails1
+                <div className='w-full overflow-scroll'  dangerouslySetInnerHTML={{ __html: job.vacancyDetails1
  }} />
                 </div>
                 <div>
-                <div className='w-full' dangerouslySetInnerHTML={{ __html: job.vacancyDetails2
+                <div className='w-full overflow-scroll' dangerouslySetInnerHTML={{ __html: job.vacancyDetails2
  }} />
                 </div>
                 </div>

@@ -24,8 +24,8 @@ const Navbar = () => {
 
     return (
         <>
-        <div className={`md:hidden w-[100vw]`}>
-            <div className={` ${styles.main} ` }>
+        <div className={`md:hidden`}>
+            <div className={styles.main}>
                 <div className={styles.links}>
                     <ul className="md:flex ">
                         <Link to="/">
