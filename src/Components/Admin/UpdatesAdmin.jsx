@@ -98,12 +98,12 @@ const UpdatesAdmin = ()=>{
                                         </div>
                                         
                                         <div className="w-[30%] flex justify-end">
-                                        <p>{news.date}</p> 
+                                        <p>{news.postDate}</p> 
                                         </div>
                                     </div>
 
                                 </div>
-                                <div className="w-full flex text-start font-bold my-2">
+                                <div className="w-full flex text-start  my-2">
                                     <a href={news.url} target="blank">
                                 {news.title}
                                 </a>

@@ -2,6 +2,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { auth, db } from "../../firebaseinit";
 import { useState, useRef, useEffect } from "react";
 import { toast } from "react-toastify";
+import styles from "../../Styles/Testpage.module.css";
 
 const TestPostAdmin = () => {
   const [isNew, setIsNew] = useState();
@@ -11,6 +12,14 @@ const TestPostAdmin = () => {
   const postDateRef = useRef();
   const timerRef = useRef();
   const [isLoggedin, setLoggedin] = useState(false);
+  const [language, setLanguage] = useState('hi');
+  const [test, setTest] = useState(null);
+  const [count, setCount] = useState(0)
+
+  const toggleLanguage = () => {
+    setLanguage((prevLanguage) => (prevLanguage === 'hi' ? 'en' : 'hi'));
+  };
+
   
 
   const fetchuser = async ()=>{
@@ -83,6 +92,14 @@ useEffect(()=>{
       } else if (lines[i].startsWith("Options (HI):")) {
         currentQuestion.options = currentQuestion.options || {}; // Initialize if not already initialized
         currentQuestion.options.hi = lines[i].split(":")[1].trim().split(", ");
+
+      } else if (lines[i].startsWith("Solution (HI):")) {
+        currentQuestion.solution = currentQuestion.solution || {}; // Initialize if not already initialized
+        currentQuestion.solution.hi = lines[i].split(":")[1].trim();
+
+      } else if (lines[i].startsWith("Solution (EN):")) {
+        currentQuestion.solution = currentQuestion.solution || {}; // Initialize if not already initialized
+        currentQuestion.solution.hi = lines[i].split(":")[1].trim();
       }
     }
   
@@ -94,12 +111,26 @@ useEffect(()=>{
     return questionsArray;
   };
   
+  const nextQuestion = () => {
+  
+    // Move to the next question
+    if (count < test.questions.length - 1) {
+      setCount((prevCount) => prevCount + 1);
+    }
+  };
+  
+  const previousQuestion = () => {
+    // Navigate back to the previous question if possible
+    if (count > 0) {
+      setCount((prevCount) => prevCount - 1);
+    }
+  };
   
   
   
 
   // Function to add or update the Firestore document
-  const addUpdate = async () => {
+  const addTest = async () => {
     const questionsInput = questionsRef.current.value;
 
     // Parse the questions input
@@ -131,6 +162,31 @@ useEffect(()=>{
     }
   };
 
+  const addPreview =  () => {
+    const questionsInput = questionsRef.current.value;
+
+    // Parse the questions input
+    const questionsArray = convertTextToQuestions(questionsInput);
+
+    try {
+      setTest({
+        testName: testNameRef.current.value,
+        newMark: isNew,
+        timer: timerRef.current.value,
+        belongsTo: belongsToRef.current.value,
+        questions: questionsArray,  // Save questions as an array
+        postDate: postDateRef.current.value,
+        timeStamp: new Date().toISOString()
+    });
+
+    console.log(test)
+
+    } catch (error) {
+      console.error("Error adding document: ", error);
+    }
+  };
+
+
   return (
     <>
     { isLoggedin ? 
@@ -153,7 +209,7 @@ useEffect(()=>{
               </div>
               <div className="text-center flex items-center justify-center">
                 <span className="text-center">Enter Questions: </span>
-                <textarea ref={questionsRef} className="border border-black w-[80%] m-5" />
+                <textarea ref={questionsRef} className="border border-black w-[80%] m-5 h-[500px] p-2" />
               </div>
               <div className="text-center flex items-center justify-center">
                 <span className="text-center">Enter test time: </span>
@@ -168,7 +224,63 @@ useEffect(()=>{
                 <input type="text" ref={postDateRef} className="border border-black w-[80%] m-5" />
               </div>
               <div className="text-center flex items-center justify-center">
-                <div type="button" className="border border-black w-20 rounded-md" onClick={addUpdate}>Submit</div>
+                <div type="button" className="border border-black w-20 rounded-md" onClick={addPreview}>Preview</div>
+              </div>
+
+
+              {test ?<div>
+              <div className={`flex-col lg:flex-row ${styles.mainContainer} `}>
+                <div className={`${styles.queContainer}`}>
+              <div className={styles.langDiv}>
+                <button className={styles.langBtn} onClick={toggleLanguage}>
+                  {language === 'hi' ? 'English' : 'Hindi'}
+                </button>
+              </div>
+              <div className={styles.mainQue}>
+                <h1>{test.questions[count].numb}. {test.questions[count].question[language]}</h1>
+              </div>
+              {test.questions[count].qList && (
+                    <div className={styles.qList}>
+                      {test.questions[count].qList[language].map((q, idx) => (
+                        <div key={idx}>
+                          <span>{q}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+              <div className={styles.queOptions}>
+                {test.questions[count].options[language].map((option, index) => (
+                  <div>
+                    <span>{option}</span>
+                  </div>
+                ))}
+              </div>
+              <div className={styles.btns}>
+                <div className={styles.queBtns} onClick={previousQuestion}>
+                  Previous
+                </div>
+                {
+                  (count < test.questions.length - 1) ? 
+                  <div className={styles.queBtns} onClick={nextQuestion}>
+                  Next
+                </div>
+                :
+                ""}
+                
+                
+              </div>
+              
+                  
+                  <div className={styles.solution}>
+                  <span>Solution: </span>  {test.questions[count].solution?
+                  test.questions[count].solution[language] :test.questions[count].answer[language] }
+                  </div>
+              </div>
+              </div>
+            </div>
+          :""}
+              <div className="text-center flex items-center justify-center">
+                <div type="button" className="border border-black w-20 rounded-md" onClick={addTest}>Submit</div>
               </div>
             </form>
           </div>

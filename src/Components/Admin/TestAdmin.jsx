@@ -70,7 +70,7 @@ const TestsAdmin = ()=>{
                             
                                
                                <div key={data.id} className={styles.adminExam} >
-                                <Link to={`/jobs/${data.id}`} className="w-full"> 
+                                <Link to={`/sarkari-tests/${data.id}`} className="w-full"> 
                                 <div className=" text-center">{data.testName}</div>
                                 </Link>
                                 <div className="mx-2 h-[30px] w-[70px] text-center rounded-md p-[2px] bg-red-600 text-white cursor-pointer" onClick={()=>deleteBtn(data.id)}>Delete</div>

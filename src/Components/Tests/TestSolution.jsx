@@ -204,8 +204,8 @@ const TestStart = () => {
               
                   {answered[count] ?
                   <div className={styles.solution}>
-                  <span>Solution: </span>  
-                  {test.questions[count].answer[language] }
+                  <span>Solution: </span>  {test.questions[count].solution?
+                  test.questions[count].solution[language] :test.questions[count].answer[language] }
                   </div>
                   : 
                   ""}

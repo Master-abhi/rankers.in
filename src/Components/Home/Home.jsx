@@ -52,7 +52,7 @@ const Home = () => {
       {/*-------------------------------------------------- Highlighted jobs-------------------------------------------------- */}
       <div className="flex items-center justify-center flex-col">
         <div className="h-full w-full md:w-3/5 m-10 rounded-md flex flex-col items-center bg-[#38874C]">
-        <img className="h-full w-auto" src="https://firebasestorage.googleapis.com/v0/b/rankers-c47cb.appspot.com/o/JOIN%20NOW%20SARKARI.png?alt=media&token=c2cfb3e9-3c7d-4829-bcf3-e84ba2b89406"/>
+        <img className="h-full w-auto" src="https://firebasestorage.googleapis.com/v0/b/rankers-c47cb.appspot.com/o/JOIN%20NOW%20SARKARI.png?alt=media&token=c2cfb3e9-3c7d-4829-bcf3-e84ba2b89406" alt="Sarkariworld.in | Sarkari jobs, Sarkari result, Sarkari notification & Test exams"/>
  
 
         </div>
