@@ -1,4 +1,4 @@
-import {collection, addDoc, setDoc, onSnapshot, Timestamp} from "firebase/firestore";
+import {collection, addDoc, doc, setDoc, onSnapshot, Timestamp} from "firebase/firestore";
 import {auth, db} from "../../firebaseinit";
 import { useState, useRef, useEffect } from "react";
 import * as XLSX from "xlsx";
@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 const JobPostAdmin = ()=>{
     const [isNew, setIsNew] = useState();
 
- 
+    const jsonRef = useRef();
     const nameRef = useRef();
     const logoRef = useRef();
     const newMarkRef = useRef();
@@ -278,6 +278,24 @@ const JobPostAdmin = ()=>{
        clearInput();
     }
 
+    const addJson = async (jsonString) => {
+      try {
+        const jsonData = JSON.parse(jsonString);
+    
+        if (!jsonData.slug) {
+          alert("Error: JSON must contain a 'slug' field.");
+          return;
+        }
+    
+        const docRef = doc(db, "highlightedJobs", jsonData.slug);
+        await setDoc(docRef, jsonData);
+    
+        toast.success("Job added successfully!");
+      } catch (err) {
+        console.error("failed to add job:", err);
+        toast.error("Invalid JSON or upload failed.");
+      }
+    };
 
 
     return (
@@ -483,6 +501,30 @@ const JobPostAdmin = ()=>{
                 </div>
                 
               </div>
+
+              <hr/>
+              <h1>Post By json</h1>
+
+              <form className="flex flex-col w-[90%]">
+                <div className="flex items-center m-4 w-[90%]">
+                  <p className="mx-4">Add JSON DATA:</p>
+                  <textarea
+                    ref={jsonRef}
+                    className="border border-black w-[80%] h-[200px]"
+                    placeholder="Paste job JSON here..."
+                  />
+                </div>
+              </form>
+
+              <div className="flex justify-center items-center m-4 w-full">
+                <input
+                  type="submit"
+                  onClick={() => addJson(jsonRef.current.value)}
+                  className="border-2 border-black hover:border-[#38874C] cursor-pointer w-1/5"
+                  value="Upload Job"
+                />
+              </div>
+
               
 
         </div>  
