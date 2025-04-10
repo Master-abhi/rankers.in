@@ -54,13 +54,14 @@ const JobEditAdmin = ()=>{
     useEffect(()=>{
       if (jobId) {
         const jobDocRef = doc(db, "highlightedJobs", jobId);
+        console.log(jobId);
     
         const unsubscribe1 = onSnapshot(jobDocRef, (docSnapshot) => {
           if (docSnapshot.exists()) {
             const jobData = { id: docSnapshot.id, ...docSnapshot.data() };
             setJob(jobData);  // job test state
-            setTablePreview1(jobData.vacancyDetails1)
-            setTablePreview2(jobData.vacancyDetails2)
+            setTablePreview1(jobData.vacancyDetails1 ? jobData.vacancyDetails1 : null)
+            setTablePreview2(jobData.vacancyDetails2 ? jobData.vacancyDetails2 : null)
             setTablePreviewLink(jobData.impLinks)
             
              // Set loading to false after data is fetched
